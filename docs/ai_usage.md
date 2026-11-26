@@ -38,3 +38,12 @@ returns None when no split exists. The tests cover a 6-customer arc table worked
 cut patterns, "min over all permutations = exact optimum" on the tiny instances, and Split(BKS order) = BKS.
 Benchmarking showed that most random tours on larger instances have no ≤ K split. That is input for the GA design
 in Step 4.
+
+### #5 – Step 4: Genetic Algorithm (Claude Code)
+Asked for a GA on giant tours: a 3-stage Split decoder (unlimited, then K-limited, then infeasible with excess),
+binary tournament, OX, swap/inversion/insertion mutation, elitism, a diversity rule with immigrants, CW seeding and
+an optional Lamarckian 2-opt. The first sanity run of the specified lexicographic (excess, cost) fitness gave an
+81.8% gap on A-n45-k6. Claude diagnosed two causes: all CW seeds were rejected as duplicates, and poor feasible
+individuals dominated good near-feasible ones. It tested two fixes and asked us to choose. We chose mutated CW seeds
+plus a penalty fitness, cost + λ·excess with an instance-scaled default λ = 2·mean d(0,i). The result was 5.9%
+plain and 4.0% memetic. Lesson: check whether a sensible-looking rule actually works before building on it.

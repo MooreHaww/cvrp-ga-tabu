@@ -77,8 +77,10 @@ def _merge(route_i: list[int], route_j: list[int], i: int, j: int) -> list[int]:
     return route_i + route_j
 
 
-def clarke_wright(inst: Instance) -> CWResult:
+def clarke_wright(inst: Instance, warn: bool = True) -> CWResult:
     """Parallel Clarke–Wright savings heuristic.
+
+    warn=False suppresses the "routes > K" message (used when CW only seeds the GA).
 
     Time: O(n^2 log n) (dominated by sorting the savings); the merge loop is
     O(n^2): O(1) checks per pair, and at most n-1 merges of O(n) each.
@@ -113,7 +115,7 @@ def clarke_wright(inst: Instance) -> CWResult:
 
     final = sorted(routes.values(), key=lambda r: r[0])  # deterministic output order
     cost = total_cost(inst, final)
-    if len(final) > inst.K:
+    if warn and len(final) > inst.K:
         print(f"WARNING: {inst.name}: Clarke-Wright used {len(final)} routes > K = {inst.K}")
     elapsed = time.perf_counter() - start
     return CWResult(solution=Solution(final), cost=cost, n_routes=len(final),

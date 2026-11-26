@@ -122,6 +122,13 @@ python -m cvrp.savings data/cvrplib/A-n32-k5.vrp
 python -m cvrp.split --benchmark
 ```
 
+**Genetic Algorithm.** Giant tour + Split. Add `--memetic` for intra-route 2-opt. The other options are `--pop`,
+`--pc`, `--pm`, `--gens` and `--penalty`:
+
+```powershell
+python -m cvrp.ga data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
+```
+
 _Experiment tables and figures will be added in Step 6/7._
 
 ## Project structure
@@ -148,6 +155,7 @@ cvrp-project/
     savings.py         Clarke–Wright savings
     split.py           Split DP (incl. max-K-routes version)
     ga.py              Genetic Algorithm
+    local_search.py    intra-route 2-opt (memetic GA)
     tabu.py            Tabu Search
   experiments/         experiment scripts
   results/
