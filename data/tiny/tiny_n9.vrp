@@ -1,31 +1,31 @@
 NAME : tiny_n9
-COMMENT : Tiny instance n=9, seed 9, No of trucks: 4
+COMMENT : Tiny instance n=9, seed 19, No of trucks: 4
 TYPE : CVRP
 DIMENSION : 10
 EDGE_WEIGHT_TYPE : EUC_2D
-CAPACITY : 16
+CAPACITY : 20
 NODE_COORD_SECTION
 1 50 50
-2 59 78
-3 47 34
-4 17 23
-5 86 0
-6 43 64
-7 59 77
-8 10 42
-9 70 78
-10 89 5
+2 86 5
+3 100 66
+4 15 65
+5 25 50
+6 44 67
+7 37 74
+8 18 76
+9 33 13
+10 33 52
 DEMAND_SECTION
 1 0
-2 7
-3 3
-4 8
-5 7
-6 3
-7 3
-8 4
-9 1
-10 2
+2 6
+3 5
+4 2
+5 6
+6 5
+7 1
+8 10
+9 10
+10 4
 DEPOT_SECTION
 1
 -1

@@ -6,7 +6,7 @@ same seed gives the same instance on every machine and numpy version).
 
 CLI:
     python -m cvrp.generator --seed N     # writes data/team/team_n100_seed{N}.vrp
-    python -m cvrp.generator --tiny       # writes data/tiny/tiny_n{7,8,9}.vrp
+    python -m cvrp.generator --tiny       # writes data/tiny/tiny_n{7,8,9}.vrp (seed search, see find_tiny_seed)
 """
 
 from __future__ import annotations
@@ -126,6 +126,46 @@ def generate_tiny_instance(n: int, seed: int) -> Instance:
     return Instance.from_euc2d_rounded(name, coords, np.array([0] + demands), Q, K)
 
 
+TINY_SEED_RANGE = 2000      # seeds n, n+1, ..., n+2000 are tried
+TINY_MIN_CW_GAP = 3.0       # preferred: Clarke–Wright at least 3% above the optimum
+
+
+def tiny_cw_gap(inst: Instance) -> tuple[float, float, float]:
+    """(Clarke–Wright cost, exact optimum, CW gap %) of a tiny instance.
+    Time: O(n^2 log n) for CW + O(2^n * n^2 + K * 3^n) for the exact solver."""
+    from cvrp.exact_small import solve_exact    # local imports: only needed for this search
+    from cvrp.savings import clarke_wright
+    cw = clarke_wright(inst, warn=False).cost
+    opt, _ = solve_exact(inst)
+    return cw, opt, 100.0 * (cw - opt) / opt
+
+
+def find_tiny_seed(n: int) -> tuple[int, bool]:
+    """First seed s in n, n+1, ..., n+TINY_SEED_RANGE whose tiny instance needs >= 2 routes,
+    fits FFD in K bins, and on which Clarke–Wright is NOT optimal (CW > opt + 1e-9).
+
+    Seeds with a CW gap >= TINY_MIN_CW_GAP % are preferred; if none exists in the
+    range, the first seed with any CW gap is returned. Returns (seed, met_min_gap).
+    Both GA and TS start from CW, so on such instances "reaching the optimum" is a
+    real test. Time: O(TINY_SEED_RANGE * (2^n * n^2 + K * 3^n)) worst case.
+    """
+    first_any = None
+    for seed in range(n, n + TINY_SEED_RANGE + 1):
+        inst = generate_tiny_instance(n, seed)   # deterministic; prints a WARNING if FFD > K
+        if inst.total_demand() <= inst.Q or ffd_bin_count(list(inst.demand[1:]), inst.Q) > inst.K:
+            continue
+        cw, opt, gap = tiny_cw_gap(inst)
+        if cw <= opt + 1e-9:
+            continue
+        if gap >= TINY_MIN_CW_GAP:
+            return seed, True
+        if first_any is None:
+            first_any = seed
+    if first_any is None:
+        raise RuntimeError(f"no tiny seed with a suboptimal Clarke–Wright start for n={n}")
+    return first_any, False
+
+
 def _fmt_number(v: float) -> str:
     """Integers without decimals, everything else with exactly 2 decimals. Time: O(1)."""
     return str(int(v)) if float(v).is_integer() else f"{v:.2f}"
@@ -167,10 +207,14 @@ def main() -> None:
     ap.add_argument("--tiny", action="store_true", help="write tiny_n7/8/9 instead of the team instance")
     args = ap.parse_args()
     if args.tiny:
+        print("n | seed | CW cost | optimum | CW gap %")
         for n in TINY_SIZES:
-            inst = generate_tiny_instance(n, seed=n)  # fixed seed per size
-            p = write_vrp(inst, f"data/tiny/tiny_n{n}.vrp", f"Tiny instance n={n}, seed {n}")
-            print(f"wrote {p}  Q={inst.Q} K={inst.K} sum(q)={inst.total_demand()}")
+            seed, met = find_tiny_seed(n)            # first seed where Clarke–Wright is not optimal
+            inst = generate_tiny_instance(n, seed)
+            cw, opt, gap = tiny_cw_gap(inst)
+            p = write_vrp(inst, f"data/tiny/tiny_n{n}.vrp", f"Tiny instance n={n}, seed {seed}")
+            note = "" if met else f"  (NOTE: no seed with CW gap >= {TINY_MIN_CW_GAP}% in range)"
+            print(f"{n} | {seed} | {cw:g} | {opt:g} | {gap:.2f}{note}   -> {p} Q={inst.Q} K={inst.K}")
     else:
         inst = generate_team_instance(args.seed)
         p = write_vrp(inst, f"data/team/team_n100_seed{args.seed}.vrp",

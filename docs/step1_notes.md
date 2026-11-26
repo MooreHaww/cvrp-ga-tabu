@@ -81,7 +81,24 @@ The brute-force test enumerates all n! permutations × 2ⁿ⁻¹ cut patterns an
   side; the others are uniform in [100, 900]². σ ∈ [40, 80] per cluster. 20 uniform customers, and the other 80 are
   split round-robin over the clusters.
 - **Tiny instances.** Integer coordinates in [0, 100]², demands in [1, 10], Q = max(max q, ⌈Σq/2.5⌉) so that
-  Σq > Q, which forces at least 2 routes (all three optima use 3). K = ⌈Σq/Q⌉ + 1. Seeds are fixed (seed = n).
+  Σq > Q, which forces at least 2 routes (all three optima use 3). K = ⌈Σq/Q⌉ + 1.
+- **Tiny seeds (changed in Step 6a-2).** The first version used seed = n, but there Clarke–Wright was already
+  optimal. GA and TS both start from CW, so "reaches the optimum" was trivially true. `python -m cvrp.generator --tiny`
+  now searches seeds n, n+1, …, n+2000 (`find_tiny_seed`) and takes the first seed that meets all of these:
+  - at least 2 routes are needed;
+  - FFD fits in K bins;
+  - CW is **not** optimal, and preferably at least 3% above the optimum (`tiny_cw_gap` uses `exact_small.solve_exact`).
+
+  `generate_tiny_instance(n, seed)` itself is unchanged. Chosen seeds:
+
+  | n | seed | CW cost | optimum | CW gap |
+  |---|---|---|---|---|
+  | 7 | 12 | 289 | 278 | 3.96% |
+  | 8 | 22 | 449 | 434 | 3.46% |
+  | 9 | 19 | 390 | 373 | 4.56% |
+
+  All three meet the 3% preference. The test `test_tiny_capacity_binds` re-runs the search and checks that the
+  committed files and `.opt.json` optima match.
 - **FFD check.** If First-Fit-Decreasing needs more than K bins, the generator prints a WARNING and does not fix it.
   For seed 0: FFD = 15 bins ≤ K = 16.
 

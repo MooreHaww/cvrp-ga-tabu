@@ -1,12 +1,14 @@
 # Original code (CMP 3005 term project).
 """Team and tiny instance generators: metric, labels, determinism, round trip."""
 
+import json
 import math
 
 import numpy as np
 import pytest
 
-from cvrp.generator import ffd_bin_count, generate_team_instance, generate_tiny_instance, write_vrp
+from cvrp.generator import (TINY_MIN_CW_GAP, ffd_bin_count, find_tiny_seed, generate_team_instance,
+                            generate_tiny_instance, tiny_cw_gap, write_vrp)
 from cvrp.instance import side_label
 from cvrp.parser import parse_vrp
 
@@ -83,5 +85,11 @@ def test_tiny_capacity_binds(n, root):
     assert inst.n == n
     assert inst.total_demand() > inst.Q                      # at least 2 routes needed
     assert inst.K >= ffd_bin_count(list(inst.demand[1:]), inst.Q)
-    gen = generate_tiny_instance(n, seed=n)                  # committed file == generator output
+    seed, met_gap = find_tiny_seed(n)                        # committed file == generator output
+    gen = generate_tiny_instance(n, seed)
     assert np.array_equal(gen.coords, inst.coords) and np.array_equal(gen.demand, inst.demand)
+    # Clarke–Wright must NOT be optimal (GA and TS start from it), here by >= 3%
+    cw, opt, gap = tiny_cw_gap(inst)
+    assert met_gap and cw > opt + 1e-9 and gap >= TINY_MIN_CW_GAP
+    stored = json.loads((root / "data/tiny" / f"tiny_n{n}.opt.json").read_text())["cost"]
+    assert stored == opt

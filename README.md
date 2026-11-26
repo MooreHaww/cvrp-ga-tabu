@@ -89,7 +89,9 @@ the sum of the last four digits of all team members' student IDs.
 python -m cvrp.generator --seed 0
 ```
 
-**Tiny instances and their exact optima.** Writes `data/tiny/tiny_n{7,8,9}.vrp` and `.opt.json`.
+**Tiny instances and their exact optima.** Writes `data/tiny/tiny_n{7,8,9}.vrp` and `.opt.json`. The generator
+searches for the first seed where Clarke–Wright is not optimal; GA and TS start from CW, so reaching the optimum is a
+real test. The chosen seeds are **n=7: 12, n=8: 22, n=9: 19**, with CW 3.96%, 3.46% and 4.56% above the optimum.
 
 ```powershell
 python -m cvrp.generator --tiny

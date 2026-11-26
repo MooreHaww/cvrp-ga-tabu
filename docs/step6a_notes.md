@@ -105,15 +105,20 @@ and `hardware.txt` (AMD Ryzen 7 9800X3D, 8 physical / 8 logical cores, 31.1 GB R
 
 The smoke budgets are tiny (1.5–3 s), so its numbers are **not** results.
 
-## Known issues found by the smoke run (to resolve before the full run)
+## Tiny instances
 
-1. **The tiny-instance optimum check is trivial.**
-   - Clarke–Wright is already optimal on tiny_n7/8/9, and both algorithms start from it by default (the GA seeds its
-     population with CW, and TS starts at CW).
-   - So `reached_optimum` is always True and says nothing about the algorithms.
-   - For the GA, a params file with `"ga": {"seed_fraction": 0}` makes the test meaningful.
-   - TS always starts from CW; giving it a different start would need a TS change.
-2. **Tabu Search gets stuck slightly infeasible on tight instances.**
+Both algorithms start from Clarke–Wright: the GA through its first individual, TS as its initial solution. The tiny
+instances were therefore chosen so that **CW is not optimal**: the first seeds where CW is at least 3% above the
+exact optimum. These are n=7 seed 12 (+3.96%), n=8 seed 22 (+3.46%) and n=9 seed 19 (+4.56%); see
+`docs/step1_notes.md`. `reached_optimum` therefore measures real search progress.
+
+In the tiny smoke run (0.1 s budgets), TS improved from the CW cost (289 / 449 / 390) to the optimum
+(278 / 434 / 373) in 2–3 steps on every run. The GA did the same on n=8 and n=9. On n=7, the GA's first individual
+(the CW route order cut by Split) is already optimal: Split alone beats CW there.
+
+## Known issue found by the smoke run (resolved)
+
+1. **Tabu Search gets stuck slightly infeasible on tight instances.**
    - A-n80-k10 fills 94.2% of the total capacity K·Q (942 of 1000).
    - TS leaves the feasible region early, while λ is small, and then cannot remove the last unit of overload. Every
      move that could fix it lies outside the 10-nearest-neighbour candidate list.

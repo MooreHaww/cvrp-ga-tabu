@@ -88,3 +88,8 @@ change nothing, can never become tabu, and were being chosen instead of real wor
 The fix skips null moves and adds a repair neighbourhood after 10 infeasible iterations. Results: A-n32-k5 reached
 the optimum (784), and A-n80-k10 improved from 1840 (stuck) to 1827. We kept the λ defaults and left λ tuning to
 Step 6b. Good example for the report: the bug was found only because the prompt asked for a diagnosis before a fix.
+
+### #9 – Step 6a-2: tiny instances with a suboptimal start (Claude Code)
+Asked to fix the data, not the algorithms. The generator now searches tiny seeds for instances where Clarke–Wright is
+at least 3% above the exact optimum. The chosen seeds are 12, 22 and 19, with CW 3.96%, 3.46% and 4.56% above. Tests
+that depended on the old instances now read the optima from the `.opt.json` files instead of hard-coding them.
