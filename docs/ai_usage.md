@@ -73,3 +73,18 @@ The one-minute smoke run exposed two problems before the 82-minute official run:
 - on the tiny instances, CW is already optimal, so `reached_optimum` would be trivially True;
 - on tight instances (A-n60-k9, A-n80-k10), Tabu Search got stuck with one unit of overload. λ hit its cap because no
   move in the 10-nearest-neighbour list could repair the overload.
+
+### #8 – Fix: Tabu Search overload trap (Claude Code)
+Asked Claude to diagnose before fixing, with numbers: infeasible iterations, overload, λ trajectory, and why no move
+removed the overload. The trace on A-n80-k10 showed:
+- 100% infeasible iterations, with overload 1 for 5,040 iterations;
+- λ at its cap from iteration 220;
+- 178 repair moves existing, none in the granular candidate list.
+
+A second check uncovered a bug nobody had suspected. 1,870 of 2,000 applied moves had Δ = 0, and only 420 distinct
+solutions were visited. The cause was "null moves", such as swapping the two customers of a 2-customer route: they
+change nothing, can never become tabu, and were being chosen instead of real worsening moves.
+
+The fix skips null moves and adds a repair neighbourhood after 10 infeasible iterations. Results: A-n32-k5 reached
+the optimum (784), and A-n80-k10 improved from 1840 (stuck) to 1827. We kept the λ defaults and left λ tuning to
+Step 6b. Good example for the report: the bug was found only because the prompt asked for a diagnosis before a fix.

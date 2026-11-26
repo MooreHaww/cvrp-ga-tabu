@@ -15,7 +15,9 @@ a tabu arc, unless it gives a new best FEASIBLE solution (aspiration).
 Only feasible solutions (overload 0) are ever reported.
 
 One iteration: O(n * kappa * m) delta evaluations (kappa = candidate_size,
-m = number of move types) + O(L + K) to apply the chosen move.
+m = number of move types) + O(L + K) to apply the chosen move. After
+`repair_after` infeasible iterations in a row, repair moves from the overloaded
+routes to ALL positions are added: + O(L_over * n) evaluations.
 
 CLI: python -m cvrp.tabu data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
      python -m cvrp.tabu --benchmark-delta
@@ -24,6 +26,7 @@ CLI: python -m cvrp.tabu data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
 from __future__ import annotations
 
 import argparse
+import itertools
 import random
 import time
 from dataclasses import dataclass, field
@@ -60,6 +63,8 @@ class TabuParams:
     time_limit: float | None = None            # seconds (checked every iteration)
     max_iterations: int | None = None
     verify_deltas: bool = False                # tests only: recompute f after every move and compare
+    repair_after: int | None = 10              # after this many infeasible iterations in a row, also try
+                                               # repair moves from overloaded routes to ALL positions (None = off)
 
     def __post_init__(self) -> None:
         """Validate. Time: O(1)."""
@@ -74,6 +79,8 @@ class TabuParams:
             raise ValueError("invalid lambda settings")
         if self.candidate_size is not None and self.candidate_size < 1:
             raise ValueError("candidate_size must be >= 1 or None")
+        if self.repair_after is not None and self.repair_after < 0:
+            raise ValueError("repair_after must be >= 0 or None")
 
 
 @dataclass
@@ -217,6 +224,21 @@ class _State:
             return two_opt_star_delta(D, Q, routes, loads, self.prefix, *args)
         return two_opt_intra_delta(D, routes, *args)
 
+    def has_arc(self, a: tuple[int, int]) -> bool:
+        """Is the (unordered) arc in the current solution? Uses the position array. Time: O(1)."""
+        u, v = a
+        if u == 0:                                       # depot arc: v starts or ends its route
+            r, k = self.where[v]
+            return k == 0 or k == len(self.routes[r]) - 1
+        (ru, ku), (rv, kv) = self.where[u], self.where[v]
+        return ru == rv and abs(ku - kv) == 1
+
+    def is_null_move(self, arcs: list[tuple[int, int]]) -> bool:
+        """A move that adds no NEW arc leaves the solution unchanged (e.g. swapping the two
+        customers of a 2-customer route = reversing it). Such moves remove no arc, so they
+        can never become tabu, and must be skipped or they stall the search. Time: O(#arcs)."""
+        return all(self.has_arc(a) for a in arcs)
+
     def added_arcs(self, kind: str, args: tuple) -> list[tuple[int, int]]:
         """Arcs the move would create. Time: O(1)."""
         if kind == "relocate":
@@ -280,6 +302,30 @@ class _State:
                 if "two_opt_star" in moves and i + 1 < len(routes[r]):
                     yield "two_opt_star", (r, i + 1, empty, 0)    # split the route after c
 
+    def repair_candidates(self, moves: set[str]):
+        """Repair moves, NOT restricted to the granular list: every customer of an
+        overloaded route may be relocated to any position of any other route, or
+        swapped with any customer of another route.
+
+        Needed on tight instances, where the only routes with spare capacity are
+        far away and therefore never among a customer's nearest neighbours.
+        Time: O(L_over * n) moves, L_over = customers on overloaded routes.
+        """
+        routes = self.routes
+        for r1, route1 in enumerate(routes):
+            if self.loads[r1] <= self.Q:
+                continue
+            for i in range(len(route1)):
+                for r2, route2 in enumerate(routes):
+                    if r2 == r1:
+                        continue
+                    if "relocate" in moves:
+                        for j in range(len(route2) + 1):
+                            yield "relocate", (r1, i, r2, j)
+                    if "swap" in moves:
+                        for j in range(len(route2)):
+                            yield "swap", (r1, i, r2, j)
+
 
 # --------------------------------------------------------------------------- main loop
 
@@ -307,6 +353,7 @@ def tabu_search(inst: Instance, params: TabuParams) -> TabuResult:
         progress.append((time.perf_counter() - start, best_dist))
 
     it = evaluated = forced = aspirations = 0
+    infeasible_streak = 0                                   # consecutive iterations ending infeasible
     while True:
         if params.max_iterations is not None and it >= params.max_iterations:
             break
@@ -317,13 +364,19 @@ def tabu_search(inst: Instance, params: TabuParams) -> TabuResult:
         best_move = None          # (pen, kind, args, dd, dover, by_aspiration)
         ties = 0
         best_tabu = None          # (pen, kind, args, dd, dover)
-        for kind, args in state.candidates(neigh, moves):
+        candidates = state.candidates(neigh, moves)
+        if params.repair_after is not None and state.over > 0 and infeasible_streak >= params.repair_after:
+            candidates = itertools.chain(candidates, state.repair_candidates(moves))
+        for kind, args in candidates:
             dd, dover = state.delta(kind, args)
             evaluated += 1
             pen = dd + lam * dover
             if best_move is not None and pen > best_move[0] + EPS:
                 continue                                    # cannot win: skip the tabu check
-            is_tabu_move = tabu.is_tabu(state.added_arcs(kind, args), it)
+            added = state.added_arcs(kind, args)
+            if state.is_null_move(added):
+                continue                                    # changes nothing: never select it
+            is_tabu_move = tabu.is_tabu(added, it)
             if not is_admissible(is_tabu_move, state.over + dover, state.dist + dd, best_dist):
                 if best_tabu is None or pen < best_tabu[0]:
                     best_tabu = (pen, kind, args, dd, dover)
@@ -353,6 +406,7 @@ def tabu_search(inst: Instance, params: TabuParams) -> TabuResult:
                 f"incremental ({state.dist}, {state.over}) != full ({full_d}, {full_o}) after {kind}{args}"
 
         lam_ctrl.record(state.over == 0)                    # may change lambda for the next iteration
+        infeasible_streak = infeasible_streak + 1 if state.over > 0 else 0
         if state.over == 0 and state.dist < best_dist - EPS:
             best_routes, best_dist = [list(r) for r in state.routes if r], state.dist
             progress.append((time.perf_counter() - start, best_dist))

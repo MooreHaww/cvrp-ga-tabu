@@ -127,3 +127,5 @@ The smoke budgets are tiny (1.5–3 s), so its numbers are **not** results.
 
    - This needs a fix in `tabu.py`, for example a repair neighbourhood that is always evaluated while the solution
      is infeasible, or a larger candidate list. It must be fixed before the official run.
+   - **Resolved** by the commit "Fix TS: skip null moves and add overload repair neighbourhood". The diagnosis found a
+     second cause, null moves, and the before/after table is in `docs/step5_notes.md`, section "Fix".

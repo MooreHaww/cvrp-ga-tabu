@@ -147,6 +147,7 @@ routes copied. A naive version that copies all routes as a numpy solution would 
 | `time_limit` | None | seconds, checked every iteration |
 | `max_iterations` | None | at least one stopping rule is required |
 | `verify_deltas` | False | tests only: recompute the objective after every move and assert it matches |
+| `repair_after` | 10 | after this many infeasible iterations in a row, also evaluate repair moves (customers of overloaded routes to ALL positions of all other routes); None = off. Added by the fix below. |
 
 Candidates for the Step 6 sensitivity study: tenure range, κ, and lam_factor.
 
@@ -175,7 +176,7 @@ Candidates for the Step 6 sensitivity study: tenure range, κ, and lam_factor.
 - **Same-route swaps are allowed**, including the adjacent case with its own formula. Relocate and 2-opt cover most
   intra-route changes, but supporting this case keeps the move set complete.
 
-## Sanity runs (10 s, seed 0, default parameters)
+## Sanity runs at Step 5 (10 s, seed 0, default parameters), BEFORE the fix below
 
 | instance | n | cost | gap % | routes / K | checker | iterations | it/s | final λ | forced | aspirations | CW cost |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -191,3 +192,72 @@ only 0.7% in 10 s. This is not explained yet. Two hypotheses, to test in Step 6:
   several steps.
 
 Longer runs, tenure and λ are in the parameter study plan.
+
+## Fix: the overload trap and null moves (found by the Step 6a smoke run)
+
+**Symptom.** On A-n80-k10, 10 s runs never improved on Clarke–Wright (1840, a 4.37% gap), and λ climbed to its cap
+of 10,000. A-n80-k10 uses 94.2% of the total capacity K·Q (942 of 1000).
+
+### Diagnosis (10 s, seed 0)
+
+| | A-n80-k10 | team_n100_seed0 |
+|---|---|---|
+| iterations | 5,100 | 3,907 |
+| infeasible iterations | **5,100 (100%)**, from iteration 1 | 1,937 (49.6%); longest streak 70 |
+| overload while stuck | **1 unit for 5,040 iterations** | short streaks, mostly 1 |
+| λ | 1.95 → 112.6 at iteration 100 → **10,000 (the cap) at iteration 220** | 9.6 → 32.5 → 14.4, never capped |
+| overload-reducing relocates/swaps at a stuck snapshot | 178 exist, **0 in the granular list** | 524 exist, 48 in the list (46 not tabu) |
+| applied moves with Δdist = 0 (first 2,000 iterations) | 1,870, of which 1,228 removed **no arc** | – |
+| distinct solutions visited (2,000 iterations) | **420** | – |
+
+At the A-n80-k10 snapshot, every route near the overloaded one had 0–3 units of slack. The only route with room (50
+units) was far away.
+
+### Root cause: two defects
+
+1. **Null moves.** Some moves leave the solution unchanged. Swapping the two customers of a 2-customer route, or
+   reversing a whole route with 2-opt, only reverses the route. Such a move removes no arc, so it never becomes tabu,
+   and its delta is 0. Whenever every real move worsened f, the search applied a null move instead of the least-bad
+   real move. That cancels the central idea of Tabu Search, and the search cycled through about 420 states.
+2. **No repair move in the granular list.** On a tight instance, the only routes with spare capacity are far from
+   the overloaded route, so the moves that remove the last unit of overload are never among a customer's 10 nearest
+   neighbours. No value of λ can make the search pick a move it never evaluates, which is why λ ran up to its cap.
+
+The team instance has neither trap: it alternates normally between feasible and infeasible.
+
+### Fix: the smallest change, with the protocol, CLI flags and result format unchanged
+
+- **Skip null moves.** A candidate whose added arcs are all already in the solution is skipped (`_State.is_null_move`).
+  Each arc is checked in O(1) with the position array (`_State.has_arc`). After the fix, 0 null moves are applied and
+  1,956 distinct states are visited in 2,000 iterations.
+- **Repair neighbourhood.** New parameter `TabuParams.repair_after`, default 10; None turns it off. After 10
+  infeasible iterations in a row, `_State.repair_candidates` adds:
+  - relocations of each customer of an overloaded route to every position of every other route;
+  - swaps of such a customer with every customer of another route.
+
+  This adds O(L_over · n) evaluations, and only on those iterations.
+
+Both parts are needed. With only the null-move fix, A-n80-k10 stays at 1840; with both it reaches 1827 (1,000-iteration
+check). The λ defaults (×1.5 every 10 iterations) were not changed. Faster settings (×2 every 5) did better in probes:
+A-n80-k10 1786/1773 and A-n60-k9 1360/1362 for seeds 0/1, against 1827/1810 and 1384/1364 with the defaults. That is
+tuning, so it goes to the Step 6b parameter study.
+
+**Tests added.**
+- A-n80-k10, 1,000 iterations, seed 0: feasible, below CW, λ below its cap, and every applied move removes at least
+  one arc. Without the repair neighbourhood the run stays at 1840 and this test fails.
+- A unit test for null-move detection.
+- A unit test that repair candidates reach every position of every other route.
+
+### Before / after (10 s, seed 0, default parameters, sequential)
+
+| instance | cost before | gap before | cost after | gap after | below CW after | routes / K | iterations after | λ after |
+|---|---|---|---|---|---|---|---|---|
+| A-n32-k5 | 788.00 | 0.51% | **784.00** | **0.00%** | 6.89% | 5/5 | 10169 | 10.40 |
+| A-n45-k6 | 944.00 | 0.00% | 944.00 | 0.00% | 5.32% | 6/6 | 7049 | 12.77 |
+| A-n60-k9 | 1391.00 | 2.73% | 1384.00 | 2.22% | 1.70% | 9/9 | 5763 | 29.02 |
+| A-n80-k10 | 1840.00 (stuck at CW, λ at cap) | 4.37% | 1827.00 | 3.63% | 0.71% | 10/10 | 4219 | 6.59 |
+| team_n100_seed0 | 14284.05 | – | 14277.35 | – | 0.77% | 16/16 | 3151 | 109.55 |
+
+All results pass the checker. Iterations per second drop by about 10–20%, the cost of the repair moves and the
+null-move check. A-n60-k9 and A-n80-k10 are still a few percent above the BKS with default λ, and the team instance
+gains little; these are targets for Step 6b.

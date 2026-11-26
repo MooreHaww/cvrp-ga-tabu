@@ -147,6 +147,59 @@ def test_a45_becomes_feasible_with_k_routes():
     assert check(inst, res.solution, claimed_cost=res.cost).feasible
 
 
+def test_a80_overload_trap_fixed(monkeypatch):
+    """Regression test for the overload trap (docs/step5_notes.md, 'Fix').
+
+    Before the fix, TS on A-n80-k10 stayed at overload 1 forever (no repair move in the
+    granular list), applied null moves that change nothing, and never beat Clarke-Wright.
+    Deterministic: max_iterations instead of a time limit.
+    """
+    import cvrp.tabu as tb
+    inst = load_instance(ROOT / "data/cvrplib/A-n80-k10.vrp")
+    removed_per_move = []
+    original_apply = tb._State.apply
+
+    def recording_apply(self, kind, args, dd, dover):
+        removed = original_apply(self, kind, args, dd, dover)
+        removed_per_move.append(len(removed))
+        return removed
+
+    monkeypatch.setattr(tb._State, "apply", recording_apply)
+    res = tabu_search(inst, TabuParams(seed=0, max_iterations=1000))
+    cw = clarke_wright(inst, warn=False).cost
+    assert check(inst, res.solution, claimed_cost=res.cost).feasible
+    assert res.cost < cw                                    # 1827 < 1840 (stuck at 1840 before the fix)
+    assert res.final_lambda < TabuParams(seed=0, max_iterations=1).lam_max
+    assert min(removed_per_move) > 0                        # every applied move really changed the solution
+
+
+def test_null_moves_detected(a32):
+    """Swapping the two customers of a 2-customer route only reverses it: a null move."""
+    routes = [[1, 2], [3, 4, 5]] + [[c] for c in range(6, a32.n + 1)]
+    state = _State(a32, routes)
+    swap = state.added_arcs("swap", (0, 0, 0, 1))           # [1,2] -> [2,1]
+    assert state.is_null_move(swap)
+    whole = state.added_arcs("two_opt", (1, 0, 2))          # reverse all of [3,4,5]
+    assert state.is_null_move(whole)
+    real = state.added_arcs("relocate", (1, 0, 0, 1))       # 3 between 1 and 2
+    assert not state.is_null_move(real)
+    assert state.has_arc((0, 1)) and state.has_arc((1, 2)) and state.has_arc((0, 2))
+    assert not state.has_arc((1, 3)) and not state.has_arc((0, 4))
+
+
+def test_repair_candidates_reach_all_routes(a32):
+    """Repair moves cover every position of every other route, not only nearest neighbours."""
+    routes = _test_routes(a32)                              # route 0 is overloaded (two CW routes merged)
+    state = _State(a32, routes)
+    assert state.loads[0] > a32.Q
+    repairs = list(state.repair_candidates({"relocate", "swap"}))
+    reloc_targets = {args[2] for kind, args in repairs if kind == "relocate"}
+    assert reloc_targets == set(range(1, len(routes)))      # every other route, empty ones included
+    assert all(args[0] == 0 for _, args in repairs)         # only customers of overloaded routes move
+    n_reloc = sum(1 for k, _ in repairs if k == "relocate")
+    assert n_reloc == len(routes[0]) * sum(len(r) + 1 for r in routes[1:])
+
+
 def test_deterministic(a32):
     a = tabu_search(a32, TabuParams(seed=3, max_iterations=200))
     b = tabu_search(a32, TabuParams(seed=3, max_iterations=200))
