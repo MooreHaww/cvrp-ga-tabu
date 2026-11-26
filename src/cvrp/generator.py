@@ -25,8 +25,8 @@ DEPOT_XY = (500.0, 500.0)   # depot at the centre of the square
 RANDOM_SHARE = 0.20         # about 20% of customers are uniform over the square
 TINY_SIZES = (7, 8, 9)
 
-# TODO: replace 0 by the real seed = sum of the last four digits of all team members' student IDs.
-DEFAULT_SEED = 0
+# Team seed: sum of the last four digits of the three members' IDs, see report.
+DEFAULT_SEED = 14835
 
 
 def ffd_bin_count(demands: list[int], Q: int) -> int:

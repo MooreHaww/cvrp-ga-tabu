@@ -25,8 +25,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_SEED = 20260
 DEFAULT_RUNS = 10
 
-# TODO: replace 0 by the real team seed = sum of the last four digits of all team members' student IDs.
-TEAM_SEED_DEFAULT = 0
+# Team seed: sum of the last four digits of the three members' IDs, see report.
+TEAM_SEED_DEFAULT = 14835
 
 # Wall-clock budget per run in seconds (equal for all algorithms on an instance).
 BUDGETS = {

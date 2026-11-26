@@ -28,7 +28,7 @@ The default selection is `--algos ga,tabu`.
   and trying raises ValueError.
 - The exact parameters of each run are stored in its `params_json` column.
 
-**Team instance.** `--team-seed S`, default 0, with a TODO for the real seed. The file
+**Team instance.** `--team-seed S`, default 14835 (the team seed, see the report). The file
 `data/team/team_n100_seed{S}.vrp` is generated if it is missing.
 
 ## File formats (`--out`, default `results/raw`)

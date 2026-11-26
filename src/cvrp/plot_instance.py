@@ -1,7 +1,7 @@
 # Original code (CMP 3005 term project).
 """Step 1 / Milestone 1: plot an instance (designed for the team instance).
 
-    python -m cvrp.plot_instance data/team/team_n100_seed0.vrp [--out results/figures/team_instance.png]
+    python -m cvrp.plot_instance data/team/team_n100_seed14835.vrp [--out results/figures/team_instance.png]
 
 Customers coloured by side, depot marked, the line x = SPLIT_X labelled
 "Bosphorus", marker size proportional to demand.

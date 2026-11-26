@@ -12,13 +12,11 @@ implements, analyzes and evaluates a constructive baseline and two metaheuristic
 
 ## Team
 
-| Name | Student ID (last 4 digits) | Main responsibility |
-|---|---|---|
-| Mohammad (Moore) Hawwari | _TBD_ | _TBD_ |
-| _TBD_ | _TBD_ | _TBD_ |
-| _TBD_ | _TBD_ | _TBD_ |
+- Joohyun Lee
+- Ahmet Emre Cinel
+- Mohammad Ammar Hawwari
 
-Team-instance seed = sum of the last four digits of all members' student IDs (see the report).
+Team-instance seed = **14835**, the sum of the last four digits of the three members' IDs (see the report).
 
 ## What it does
 
@@ -82,11 +80,12 @@ foreach ($name in $ids.Keys) {
 }
 ```
 
-**Team instance.** Writes `data/team/team_n100_seed<N>.vrp`. The current seed is the placeholder 0. The real seed is
-the sum of the last four digits of all team members' student IDs.
+**Team instance.** Writes `data/team/team_n100_seed<N>.vrp`. The team seed is 14835 (the default), the sum of the
+last four digits of the three members' IDs. The old placeholder file `team_n100_seed0.vrp` is kept for the tests and
+the Step 3/5 benchmarks.
 
 ```powershell
-python -m cvrp.generator --seed 0
+python -m cvrp.generator --seed 14835
 ```
 
 **Tiny instances and their exact optima.** Writes `data/tiny/tiny_n{7,8,9}.vrp` and `.opt.json`. The generator
@@ -108,7 +107,7 @@ python -m cvrp.summary
 ```
 
 ```powershell
-python -m cvrp.plot_instance data/team/team_n100_seed0.vrp
+python -m cvrp.plot_instance data/team/team_n100_seed14835.vrp --out results/figures/team_instance.png
 ```
 
 **Clarke–Wright baseline.** Prints the cost, number of routes vs K, gap to the BKS, runtime, the checker verdict

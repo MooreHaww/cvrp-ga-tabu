@@ -102,7 +102,10 @@ The brute-force test enumerates all n! permutations × 2ⁿ⁻¹ cut patterns an
 - **FFD check.** If First-Fit-Decreasing needs more than K bins, the generator prints a WARNING and does not fix it.
   For seed 0: FFD = 15 bins ≤ K = 16.
 
-## Current team instance (placeholder seed 0)
-`data/team/team_n100_seed0.vrp`: Σq = 1496, K = 16, 57 vertices on side E and 44 on side A (including the depot).
-Plot: `results/figures/team_instance.png`. **TODO:** regenerate with the real seed (sum of the last four digits of
-all student IDs).
+## Team instance (seed 14835)
+The team seed is 14835, the sum of the last four digits of the three members' IDs (see the report).
+`data/team/team_n100_seed14835.vrp`: Σq = 1421, K = 16, FFD = 15 bins ≤ K, 66 vertices on side E and 35 on side A
+(including the depot). Plot: `results/figures/team_instance.png`. Clarke–Wright: 16599.05 with 15 routes, feasible.
+
+The earlier placeholder `data/team/team_n100_seed0.vrp` (Σq = 1496, K = 16, 57 E / 44 A) is kept: the generator
+tests and the Step 3/5 benchmark tables use it.
