@@ -1,0 +1,9 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+
+# Temporary experiment files (data/ and results/ ARE tracked)
+results/raw/*.tmp

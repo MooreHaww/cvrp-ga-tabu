@@ -1,0 +1,16 @@
+# Minimal packaging config so `pip install -e .` makes `import cvrp` work from src/.
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cvrp"
+version = "0.1.0"
+description = "CVRP solved with Clarke-Wright, a Genetic Algorithm and Tabu Search (CMP 3005 term project)"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
