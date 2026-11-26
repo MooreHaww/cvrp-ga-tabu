@@ -142,7 +142,28 @@ python -m cvrp.tabu data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
 python -m cvrp.tabu --benchmark-delta
 ```
 
-_Experiment tables and figures will be added in Step 6/7._
+### Main experiments (Task 7)
+
+The protocol is 10 seeded runs per instance and algorithm, with equal time budgets for GA and TS. Raw CSV goes to
+`results/raw/`. Details are in `docs/step6a_notes.md`.
+
+**Quick check of the whole pipeline.** About 1 minute; writes to `results/smoke/`, which is not committed:
+
+```powershell
+python -m experiments.run_experiments --smoke
+```
+
+**Full run.** GA and Tabu Search, 10 runs, sequential. About 82 minutes. It can be resumed after an interruption,
+because finished runs are skipped:
+
+```powershell
+python -m experiments.run_experiments
+```
+
+Still to come:
+- TODO Step 6b: parameter tuning, with tuned values passed through `--params-file`;
+- TODO Step 6c: summary tables, convergence plots, route plots and Wilcoxon test;
+- TODO Step 7: final report figures.
 
 ## Project structure
 
@@ -170,7 +191,7 @@ cvrp-project/
     ga.py              Genetic Algorithm
     local_search.py    2-opt (memetic GA) + O(1) move deltas (relocate, swap, 2-opt*)
     tabu.py            Tabu Search
-  experiments/         experiment scripts
+  experiments/         experiment scripts (config.py, run_experiments.py)
   results/
     raw/               raw per-run CSV results
     tables/            summary tables

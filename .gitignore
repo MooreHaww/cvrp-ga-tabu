@@ -7,3 +7,5 @@ __pycache__/
 
 # Temporary experiment files (data/ and results/ ARE tracked)
 results/raw/*.tmp
+# Smoke runs of the experiment runner (never part of the reported results)
+results/smoke/

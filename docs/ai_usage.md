@@ -60,3 +60,16 @@ Asked for a granular Tabu Search. Specification:
 The tests check every delta formula against a full recomputation on 1,000 random moves per move type. The benchmark
 shows the delta at about 0.5 µs per move for every n, against 3.4–9.6 µs for a full re-evaluation. In 10 s, Tabu
 Search reached the BKS on A-n45-k6 and a 0.51% gap on A-n32-k5.
+
+### #7 – Step 6a: experiment runner (Claude Code)
+Asked for a runner implementing the Task 7 protocol:
+- 10 runs per (instance, algorithm) with seeds BASE_SEED + r shared by GA and TS;
+- equal wall-clock budgets and interleaved execution;
+- `checker.check` on every result, with infeasible runs kept;
+- raw `runs.csv` / `progress.csv`, a `hardware.txt` report, resume after interruption, parameter overrides from
+  JSON, and a smoke mode.
+
+The one-minute smoke run exposed two problems before the 82-minute official run:
+- on the tiny instances, CW is already optimal, so `reached_optimum` would be trivially True;
+- on tight instances (A-n60-k9, A-n80-k10), Tabu Search got stuck with one unit of overload. λ hit its cap because no
+  move in the 10-nearest-neighbour list could repair the overload.
