@@ -129,6 +129,19 @@ python -m cvrp.split --benchmark
 python -m cvrp.ga data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
 ```
 
+**Tabu Search.** Granular, with soft capacity and adaptive λ. The other options are `--iters`, `--tenure-min`,
+`--tenure-max`, `--cand` and `--moves relocate,swap,two_opt_star,two_opt`:
+
+```powershell
+python -m cvrp.tabu data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
+```
+
+**Delta-evaluation benchmark** (Task 6). Compares the O(1) delta with a full re-evaluation per move:
+
+```powershell
+python -m cvrp.tabu --benchmark-delta
+```
+
 _Experiment tables and figures will be added in Step 6/7._
 
 ## Project structure
@@ -155,7 +168,7 @@ cvrp-project/
     savings.py         Clarke–Wright savings
     split.py           Split DP (incl. max-K-routes version)
     ga.py              Genetic Algorithm
-    local_search.py    intra-route 2-opt (memetic GA)
+    local_search.py    2-opt (memetic GA) + O(1) move deltas (relocate, swap, 2-opt*)
     tabu.py            Tabu Search
   experiments/         experiment scripts
   results/

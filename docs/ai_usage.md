@@ -47,3 +47,16 @@ an optional Lamarckian 2-opt. The first sanity run of the specified lexicographi
 individuals dominated good near-feasible ones. It tested two fixes and asked us to choose. We chose mutated CW seeds
 plus a penalty fitness, cost + λ·excess with an instance-scaled default λ = 2·mean d(0,i). The result was 5.9%
 plain and 4.0% memetic. Lesson: check whether a sensible-looking rule actually works before building on it.
+
+### #6 – Step 5: Tabu Search (Claude Code)
+Asked for a granular Tabu Search. Specification:
+- exactly K route slots (Clarke–Wright merged down to K if needed);
+- soft capacity with an adaptive penalty λ;
+- relocate, swap, 2-opt* and intra-route 2-opt moves with O(1) deltas, restricted to each customer's 10 nearest
+  neighbours;
+- an arc-based tabu list with random tenure and aspiration;
+- only feasible solutions reported.
+
+The tests check every delta formula against a full recomputation on 1,000 random moves per move type. The benchmark
+shows the delta at about 0.5 µs per move for every n, against 3.4–9.6 µs for a full re-evaluation. In 10 s, Tabu
+Search reached the BKS on A-n45-k6 and a 0.51% gap on A-n32-k5.
