@@ -109,6 +109,13 @@ python -m cvrp.summary
 python -m cvrp.plot_instance data/team/team_n100_seed0.vrp
 ```
 
+**Clarke–Wright baseline.** Prints the cost, number of routes vs K, gap to the BKS, runtime, the checker verdict
+and the routes:
+
+```powershell
+python -m cvrp.savings data/cvrplib/A-n32-k5.vrp
+```
+
 _Experiment tables and figures will be added in Step 6/7._
 
 ## Project structure
