@@ -93,3 +93,18 @@ Step 6b. Good example for the report: the bug was found only because the prompt 
 Asked to fix the data, not the algorithms. The generator now searches tiny seeds for instances where Clarke–Wright is
 at least 3% above the exact optimum. The chosen seeds are 12, 22 and 19, with CW 3.96%, 3.46% and 4.56% above. Tests
 that depended on the old instances now read the optima from the `.opt.json` files instead of hard-coding them.
+
+### #10 – Step 6b: parameter study (Claude Code)
+Asked for a one-factor-at-a-time study runner, not a tuning run. Requirements:
+- separate tuning seeds (1000 + r), never the final seeds;
+- 3 instances, 10 s per run;
+- a shared all-defaults baseline per algorithm;
+- a normalised gap (BKS, or the best team cost seen);
+- sensitivity plots with SE error bars;
+- a conservative selection rule: change a default only if it is beaten by more than the larger SE;
+- a validation run of tuned vs default to catch bad combinations, since OFAT ignores interactions.
+
+Claude pointed out two design gaps before coding:
+- a per-instance λ cannot be written into a per-algorithm params file, so the GA penalty is stored as a multiplier
+  (`penalty_scale`);
+- validating on the selection seeds would be biased, so validation uses the held-out tuning seeds 1005–1009.

@@ -6,6 +6,9 @@ Protocol (course brief, Task 7):
     the SAME seed values for every algorithm;
   - the SAME wall-clock budget for every algorithm on an instance (BUDGETS below);
   - every result is validated by cvrp.checker.check.
+
+Parameter overrides (--params-file) may use 'penalty_scale' for the GA: the absolute
+penalty is then penalty_scale * default_penalty(inst), computed per instance (Step 6b).
 """
 
 from __future__ import annotations
@@ -13,7 +16,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from cvrp.ga import GAParams, genetic_algorithm
+from cvrp.ga import GAParams, default_penalty, genetic_algorithm
 from cvrp.instance import Instance
 from cvrp.solution import Solution
 from cvrp.tabu import TabuParams, tabu_search
@@ -81,11 +84,31 @@ def _checked_overrides(overrides: dict) -> dict:
     return overrides
 
 
+def _resolve_penalty_scale(inst: Instance, overrides: dict) -> tuple[dict, float | None]:
+    """Turn the override 'penalty_scale' s into the absolute GA penalty s * default_penalty(inst).
+
+    The default lambda depends on the instance (2 * mean depot distance), so a params file
+    stores the multiplier, not the absolute value. Time: O(n).
+    """
+    overrides = dict(overrides)
+    scale = overrides.pop("penalty_scale", None)
+    if scale is None:
+        return overrides, None
+    if overrides.get("penalty") is not None:
+        raise ValueError("give either 'penalty' or 'penalty_scale', not both")
+    overrides["penalty"] = float(scale) * default_penalty(inst)
+    return overrides, float(scale)
+
+
 def _run_ga(inst: Instance, seed: int, budget: float, overrides: dict, memetic: bool) -> Outcome:
-    params = GAParams(**{"memetic": memetic, **_checked_overrides(overrides)}, seed=seed, time_limit=budget)
+    overrides, scale = _resolve_penalty_scale(inst, _checked_overrides(overrides))
+    params = GAParams(**{"memetic": memetic, **overrides}, seed=seed, time_limit=budget)
     res = genetic_algorithm(inst, params)
+    p = asdict(params)
+    if scale is not None:
+        p["penalty_scale"] = scale      # record the multiplier next to the absolute lambda
     return Outcome(res.solution, res.best_cost, res.n_routes, res.generations, res.decodes,
-                   res.progress, res.elapsed, asdict(params))
+                   res.progress, res.elapsed, p)
 
 
 def run_ga(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:

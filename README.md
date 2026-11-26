@@ -161,8 +161,48 @@ because finished runs are skipped:
 python -m experiments.run_experiments
 ```
 
+### Parameter study (Task 7, Step 6b)
+
+One-factor-at-a-time study around the defaults: 26 configurations × 3 instances (A-n45-k6, A-n60-k9, team) × 5 runs
+× 10 s, on tuning seeds 1000–1004 (never the final seeds 20260–20269). Details are in `docs/step6b_notes.md`.
+
+**Quick check.** 1 run, 0.5 s budgets, into `results/smoke_tuning/` (not committed):
+
+```powershell
+python -m experiments.tuning run --smoke
+```
+
+**Study.** About 65 minutes, or about 22 minutes with `--workers 3`. It can be resumed:
+
+```powershell
+python -m experiments.tuning run --workers 3
+```
+
+**Analysis.** Writes `results/tables/tuning_summary.csv`, `tuning_selection.csv`, the plots
+`results/figures/sensitivity_<algo>_<param>.png` and `experiments/tuned_params.json`:
+
+```powershell
+python -m experiments.tuning analyze
+```
+
+**Validation.** Tuned vs default for GA and TS on the held-out seeds 1005–1009, then analyze again to write
+`results/tables/tuning_validation.csv`:
+
+```powershell
+python -m experiments.tuning run --validate --workers 3
+```
+
+```powershell
+python -m experiments.tuning analyze
+```
+
+**Final run with the tuned parameters:**
+
+```powershell
+python -m experiments.run_experiments --params-file experiments/tuned_params.json
+```
+
 Still to come:
-- TODO Step 6b: parameter tuning, with tuned values passed through `--params-file`;
 - TODO Step 6c: summary tables, convergence plots, route plots and Wilcoxon test;
 - TODO Step 7: final report figures.
 
@@ -192,7 +232,7 @@ cvrp-project/
     ga.py              Genetic Algorithm
     local_search.py    2-opt (memetic GA) + O(1) move deltas (relocate, swap, 2-opt*)
     tabu.py            Tabu Search
-  experiments/         experiment scripts (config.py, run_experiments.py)
+  experiments/         experiment scripts (config.py, run_experiments.py, tuning.py, tuning_grid.py)
   results/
     raw/               raw per-run CSV results
     tables/            summary tables
