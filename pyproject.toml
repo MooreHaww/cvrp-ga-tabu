@@ -14,3 +14,6 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# Slow tests (e.g. all 9! permutations) are skipped by default; run them with: pytest -m slow
+addopts = "-m 'not slow'"
+markers = ["slow: long-running exhaustive checks (deselected by default, run with -m slow)"]

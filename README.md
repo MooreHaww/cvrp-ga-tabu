@@ -116,6 +116,12 @@ and the routes:
 python -m cvrp.savings data/cvrplib/A-n32-k5.vrp
 ```
 
+**Split DP timing.** Mean time per `split()` call on 200 random tours:
+
+```powershell
+python -m cvrp.split --benchmark
+```
+
 _Experiment tables and figures will be added in Step 6/7._
 
 ## Project structure
@@ -158,6 +164,12 @@ Run the full suite:
 
 ```powershell
 python -m pytest
+```
+
+Slow exhaustive checks (for example Split over all 9! permutations, about 7 s) are skipped by default. Run them with:
+
+```powershell
+python -m pytest -m slow
 ```
 
 Run one test file:

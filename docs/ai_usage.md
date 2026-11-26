@@ -30,3 +30,11 @@ s > 0, a deterministic tie-break (s desc, i asc, j asc), and merging only at rou
 enforced: a warning is printed instead. The algorithm returns a result object with iteration and merge counters and
 has a CLI that prints the gap and the checker verdict. The tests include a 5-customer example whose savings order
 and merges were worked out by hand in a comment.
+
+### #4 – Step 3: Split DP (Claude Code)
+Asked for Prins' Split procedure as a shortest path in a DAG. Requirements: prefix sums for O(1) arcs, a backward
+inner loop that stops at the first overload, O(n·L) time, and a layered version limited to at most K routes that
+returns None when no split exists. The tests cover a 6-customer arc table worked out by hand, a brute force over all
+cut patterns, "min over all permutations = exact optimum" on the tiny instances, and Split(BKS order) = BKS.
+Benchmarking showed that most random tours on larger instances have no ≤ K split. That is input for the GA design
+in Step 4.
