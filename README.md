@@ -68,7 +68,48 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
 ## Reproducing results
 
-_To be filled in at Step 6/7: exact commands for every table and figure in the report._
+Run all commands from the repository root with the venv active. The data files are already committed. These
+commands recreate them.
+
+**Benchmark data (Augerat set A, CVRPLIB).** The files are already in `data/cvrplib/`. To re-download them:
+
+```powershell
+$base = "https://galgos.inf.puc-rio.br/cvrplib/en/download"
+$ids = @{ "A-n32-k5" = 4; "A-n45-k6" = 16; "A-n60-k9" = 23; "A-n80-k10" = 31 }
+foreach ($name in $ids.Keys) {
+    Invoke-WebRequest "$base/instance/$($ids[$name])" -OutFile "data/cvrplib/$name.vrp"
+    Invoke-WebRequest "$base/bks/$($ids[$name])" -OutFile "data/cvrplib/$name.sol"
+}
+```
+
+**Team instance.** Writes `data/team/team_n100_seed<N>.vrp`. The current seed is the placeholder 0. The real seed is
+the sum of the last four digits of all team members' student IDs.
+
+```powershell
+python -m cvrp.generator --seed 0
+```
+
+**Tiny instances and their exact optima.** Writes `data/tiny/tiny_n{7,8,9}.vrp` and `.opt.json`.
+
+```powershell
+python -m cvrp.generator --tiny
+```
+
+```powershell
+python -m cvrp.exact_small
+```
+
+**Milestone 1: summary table and team-instance plot.** The plot goes to `results/figures/team_instance.png`.
+
+```powershell
+python -m cvrp.summary
+```
+
+```powershell
+python -m cvrp.plot_instance data/team/team_n100_seed0.vrp
+```
+
+_Experiment tables and figures will be added in Step 6/7._
 
 ## Project structure
 
@@ -89,6 +130,8 @@ cvrp-project/
     solution.py        solution representation + cost
     checker.py         independent feasibility checker
     exact_small.py     exact solver for n <= 9
+    summary.py         Milestone 1 summary table
+    plot_instance.py   Milestone 1 instance plot
     savings.py         Clarke–Wright savings
     split.py           Split DP (incl. max-K-routes version)
     ga.py              Genetic Algorithm
@@ -104,9 +147,22 @@ cvrp-project/
 
 ## Tests
 
+Run the full suite:
+
 ```powershell
 python -m pytest
 ```
+
+Run one test file:
+
+```powershell
+python -m pytest tests/test_checker.py
+```
+
+The suite covers parsing of all four Augerat instances. It checks that each BKS .sol passes the checker with the
+stated cost, and that the checker catches every kind of violation. For the team instance it tests the triangle
+inequality on all 101³ triples, the side labels, determinism and the write → parse round trip. It also checks that
+the exact solver matches a brute force on `tiny_n7`. Step-by-step design notes are in `docs/step1_notes.md`.
 
 ## Sources
 

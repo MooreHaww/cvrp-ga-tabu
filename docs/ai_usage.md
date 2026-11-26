@@ -15,3 +15,11 @@ Asked the assistant to set up the repository only (no algorithm code): a Python 
 with numpy, matplotlib, pytest and scipy (Wilcoxon only), the src/cvrp package skeleton with one
 placeholder module per roadmap step, a CLAUDE.md with the project rules (no external solvers, distance
 conventions, explicit seeds, feasibility checker), a README skeleton, and this log.
+
+### #2 – Step 1: data layer (Claude Code)
+Asked for the data layer only: an Instance dataclass with TSPLIB-rounded and Bosphorus distances, a CVRPLIB .vrp/.sol
+parser that verifies the .sol numbering by recomputing the BKS cost, the team and tiny instance generators (seeded,
+byte-identical output, FFD warning), an independent feasibility checker, and an exact Held–Karp + set-partition solver
+for n ≤ 9 cross-checked against brute force. Also asked for pytest tests, a summary table and the team-instance plot.
+In review we added two requirements: compute side labels from the coordinates after rounding, and check the NAME line
+of each downloaded file.
