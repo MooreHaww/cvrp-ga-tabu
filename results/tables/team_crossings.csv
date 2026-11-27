@@ -1,0 +1,4 @@
+algo,n_runs,mean_routes,mean_routes_with_E,mean_crossings,min_crossings,max_crossings,mean_penalty_share_pct,best_run,best_cost,best_routes,best_routes_with_E,best_crossings,best_penalty_share_pct
+ga,10,15.0,10.0,20.0,20,20,18.414984,3,16204.755264,15,10,20,18.513084
+ga_ls,10,15.0,10.0,20.0,20,20,18.924165,0,15816.256411,15,10,20,18.967826
+tabu,10,15.0,10.0,20.0,20,20,18.77121,6,15869.747863,15,10,20,18.903892

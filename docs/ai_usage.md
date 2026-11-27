@@ -148,3 +148,19 @@ cross the Bosphorus. The prompt was a precise specification:
 The prompt also asked Claude to plan first (plan mode). The plan settled one design point before any code was
 written: the solution file is written by the single writer **before** the CSV row. A crash can then only produce a
 file without a row, which a resume simply overwrites. It can never produce a row without a file.
+
+### #14 – Step 6c: analysis of the main run (Claude Code)
+The prompt listed every table, figure and test, and also fixed the statistics up front:
+- Wilcoxon paired by seed;
+- an explicit "all ties" case instead of calling the function;
+- Holm adjustment;
+- a note on the 10-pair limitation.
+
+It also told Claude to read the existing code instead of inventing things ("read how generator.py defines sides … do
+not invent") and to show the real `progress.csv` format in the plan.
+
+Two useful checks came out of this:
+- the strait-crossing count is verified against the real cost formula for every solution (Euclidean length +
+  crossings·P = cost), so the count cannot silently drift from the definition in `instance.py`;
+- the analysis showed that all 30 team solutions cross the strait exactly at the lower bound (2 per E route), a result
+  for the report that no one had asked for directly.

@@ -1,0 +1,25 @@
+instance,pair,n_pairs,n_nonzero,result,statistic,p,p_holm,median_diff
+A-n32-k5,ga_ls vs tabu,10,0,all ties,,,,0.0
+A-n45-k6,ga_ls vs tabu,10,5,tested,1.0,0.125,0.25,0.0
+A-n60-k9,ga_ls vs tabu,10,6,tested,0.0,0.03125,0.09375,-1.0
+A-n80-k10,ga_ls vs tabu,10,10,tested,22.0,0.625,0.625,-4.5
+team,ga_ls vs tabu,10,10,tested,0.0,0.001953,0.007812,-154.781733
+tiny_n7,ga_ls vs tabu,10,0,all ties,,,,0.0
+tiny_n8,ga_ls vs tabu,10,0,all ties,,,,0.0
+tiny_n9,ga_ls vs tabu,10,0,all ties,,,,0.0
+A-n32-k5,ga_ls vs ga,10,10,tested,0.0,0.001953,0.009766,-43.0
+A-n45-k6,ga_ls vs ga,10,10,tested,0.0,0.001953,0.009766,-31.0
+A-n60-k9,ga_ls vs ga,10,10,tested,0.0,0.001953,0.009766,-52.0
+A-n80-k10,ga_ls vs ga,10,10,tested,0.0,0.001953,0.009766,-64.5
+team,ga_ls vs ga,10,10,tested,0.0,0.001953,0.009766,-446.331836
+tiny_n7,ga_ls vs ga,10,0,all ties,,,,0.0
+tiny_n8,ga_ls vs ga,10,0,all ties,,,,0.0
+tiny_n9,ga_ls vs ga,10,0,all ties,,,,0.0
+A-n32-k5,tabu vs ga,10,10,tested,0.0,0.001953,0.009766,-43.0
+A-n45-k6,tabu vs ga,10,10,tested,0.0,0.001953,0.009766,-32.0
+A-n60-k9,tabu vs ga,10,10,tested,0.0,0.001953,0.009766,-51.0
+A-n80-k10,tabu vs ga,10,10,tested,0.0,0.001953,0.009766,-62.0
+team,tabu vs ga,10,10,tested,0.0,0.001953,0.009766,-313.323822
+tiny_n7,tabu vs ga,10,0,all ties,,,,0.0
+tiny_n8,tabu vs ga,10,0,all ties,,,,0.0
+tiny_n9,tabu vs ga,10,0,all ties,,,,0.0

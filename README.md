@@ -251,8 +251,18 @@ python -m experiments.tuning run --round 2 --validate --workers 3
 python -m experiments.tuning analyze --round 2
 ```
 
+### Analysis of the main run (Step 6c)
+
+Reads `results/raw/` (read-only) and writes the tables `results/tables/{main_results,cw_baseline,tiny_results,
+wilcoxon,team_crossings}.csv` (and `.md`). It also writes the figures `results/figures/convergence_<instance>.png`,
+`boxplots_final.png` and `team_routes_{ga_ls,tabu}.png`. It takes a few seconds. Details are in
+`docs/step6c_notes.md`.
+
+```powershell
+python -m experiments.analysis
+```
+
 Still to come:
-- TODO Step 6c: summary tables, convergence plots, route plots and Wilcoxon test;
 - TODO Step 7: final report figures.
 
 ## Project structure
