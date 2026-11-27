@@ -87,8 +87,9 @@ THEORY = {
     "split_k": ("O(K n L), K ~ n", lambda n: n * n,
                 "K grows linearly with n because Q is fixed, so K*n*L is quadratic"),
     "ga_generation": ("O(P n L)", lambda n: n,
-                      "offspring needing more than K routes fall back to the K-limited Split, O(K n L) ~ n^2: "
-                      "a slope between 1 and 2 is expected (see arcs_per_decode)"),
+                      "offspring needing more than K routes also run the K-limited Split, O(K n L) ~ n^2, even "
+                      "when it fails; arcs_per_decode counts successful K-limited splits only, so it does not "
+                      "show this fallback"),
     "gals_generation": ("O(P (n L + passes n kappa))", lambda n: n,
                         "dominated by the descent, whose number of passes grows with n; decode may also fall back "
                         "to the K-limited Split"),

@@ -89,8 +89,37 @@ The smoke run uses sizes 20 and 40 with 2 repetitions and takes a few seconds. E
   caches at large n, which can push slopes up.
 - **Log factors:** CW sorts n² savings, and the neighbour lists sort n lists of n entries.
 - **The GA generation is not purely O(P·n·L) here.** An offspring whose unlimited Split needs more than K routes is
-  decoded again with the K-limited Split, O(K·n·L). Since K ∝ n in this experiment, that fallback is O(n²), so a slope
-  between 1 and 2 is expected. `arcs_per_decode` in `extra_json` shows it.
+  decoded again with the K-limited Split, O(K·n·L). Since K ∝ n in this experiment, that fallback is O(n²).
+  - `arcs_per_decode` in `extra_json` does **not** show this. `decode` adds the arcs of a K-limited Split only when
+    that Split succeeds, so a failed fallback costs time but adds no arcs.
+  - The measured numbers are in "Checks on the full run" below.
 - **Descent passes grow with n** (2 at n = 100, 3 at n = 400 in a pilot run), so the whole descent grows faster than
   one pass.
 - **Only 5 sizes:** the fits describe this range (50–800), not an asymptotic limit.
+
+## Checks on the full run (read from `results/timing/timing.csv`, medians over 7 repetitions)
+- **GA fallback.**
+  - The fallback share (decodes that needed the K-limited Split) is **not stored**. It was estimated from time as
+    (ms per decode − unlimited Split ms) / K-limited Split ms.
+  - That estimate counts all other generation work (selection, crossover, mutation) as fallback, so it is an
+    **upper bound**: 0.61–0.77 for n = 50..800.
+  - From n = 200 on, the K-limited Split never succeeds on random tours (`split_k` feasible share 0.0). Its cost is
+    paid with no benefit: the offspring ends up infeasible in stage 3 anyway.
+  - The GA time per decode is about **0.75 × the K-limited Split time** at every n ≥ 200. The GA generation slope for
+    n = 100..800 is **1.99**, measured from the two end points only; the least-squares fit in `complexity_fits` gives
+    2.01. So the generation is O(n²) in this experiment because of the fallback.
+- **Tabu Search iteration.** These slopes are also measured from the two end points, n = 100 and 800 (the fit in the
+  table gives 1.18 too). The extra slope, **1.18** against a theory slope of 1.00, splits into two parts:
+  - **1.07** from more moves per iteration: 78 → 90 moves evaluated per customer;
+  - **0.11** from the time per move: 686 → 866 ns.
+
+  Each move simply gets slower to evaluate as n grows (a cache and memory effect).
+- **Delta vs full evaluation.**
+  - The O(1) delta still slows by 73% from n = 50 to 800 (0.515 → 0.890 µs per move), which is the same cache and
+    memory effect.
+  - The full re-evaluation has slope **1.02**, as expected for O(n).
+  - The speedup grows from **10×** (n = 50) to **92×** (n = 800).
+- **Split vs L** (Q-sweep, n = 200).
+  - The arcs examined are exactly n·L.
+  - The time is about **126 µs fixed per call + 0.076 µs per arc**. So the time grows less than linearly in L: the
+    fixed part (prefix sums, the tour check, allocation) does not depend on L.
