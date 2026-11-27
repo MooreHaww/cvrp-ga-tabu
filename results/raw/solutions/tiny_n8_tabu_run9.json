@@ -1,0 +1,1 @@
+{"algo": "tabu", "budget_s": 2.0, "cost": 434.0, "feasible": true, "instance": "tiny_n8", "n_routes": 3, "routes": [[2, 8], [6, 1, 7], [5, 4, 3]], "run": 9, "seed": 20269}

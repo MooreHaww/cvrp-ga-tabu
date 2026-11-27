@@ -1,0 +1,1 @@
+{"algo": "ga", "budget_s": 2.0, "cost": 434.0, "feasible": true, "instance": "tiny_n8", "n_routes": 3, "routes": [[6, 1, 7], [8, 2], [5, 4, 3]], "run": 1, "seed": 20261}
