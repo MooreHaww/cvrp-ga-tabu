@@ -164,3 +164,17 @@ Two useful checks came out of this:
   crossings·P = cost), so the count cannot silently drift from the definition in `instance.py`;
 - the analysis showed that all 30 team solutions cross the strait exactly at the lower bound (2 per E route), a result
   for the report that no one had asked for directly.
+
+### #15 – Step 6d: complexity timing experiment (Claude Code)
+The prompt asked Claude to:
+- check first what the code already exposes;
+- prefer existing fixed-iteration stops over new hooks;
+- only build and smoke-test the experiment, because the real timing needs a quiet CPU that the user controls.
+
+Claude found that `max_generations`, `gen_times` and `max_iterations` already existed, so no algorithm code changed. A
+short pilot timing revealed something the theory section had glossed over. With Q fixed, K grows with n, so the
+K-limited Split inside the GA decoder is effectively O(n²). The plain-GA generation therefore grows faster than the
+O(P·n·L) in the report, and the notes now say so.
+
+The user changed one design decision during plan review: the verdict uses a minimum slope tolerance of 0.15 next to
+2·SE, because 4 sizes give an unreliable SE. This was written into the table footer and the notes.

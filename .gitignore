@@ -11,3 +11,4 @@ results/raw/*.tmp
 results/smoke/
 results/smoke_tuning/
 results/smoke_tuning2/
+results/smoke_timing/

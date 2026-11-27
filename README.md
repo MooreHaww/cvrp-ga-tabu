@@ -262,6 +262,27 @@ wilcoxon,team_crossings}.csv` (and `.md`). It also writes the figures `results/f
 python -m experiments.analysis
 ```
 
+### Complexity validation (Step 6d)
+
+A timing experiment measures how running time grows with n (50–800). It covers Clarke–Wright, Split, a GA and GA+LS
+generation, a Tabu Search iteration, delta vs full move evaluation, and the descent. It then fits log-log slopes
+against the theory. Run it on a **quiet CPU**; it takes about 5–7 minutes. Outputs:
+- `results/timing/timing.csv`;
+- `results/tables/complexity_fits.{csv,md}`;
+- `results/figures/complexity_*.png`.
+
+Details are in `docs/step6d_notes.md`.
+
+```powershell
+python -m experiments.timing
+```
+
+Quick check (a few seconds, into `results/smoke_timing/`, not committed):
+
+```powershell
+python -m experiments.timing --smoke
+```
+
 Still to come:
 - TODO Step 7: final report figures.
 
