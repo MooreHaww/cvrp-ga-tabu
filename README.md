@@ -157,6 +157,10 @@ python -m cvrp.tabu --benchmark-delta
 The protocol is 10 seeded runs per instance and algorithm, with equal time budgets for GA and TS. Raw CSV goes to
 `results/raw/`. Details are in `docs/step6a_notes.md`.
 
+Every run also saves its routes to `results/raw/solutions/<instance>_<algo>_run<r>.json`, or `<out>/solutions/` for
+other output folders. `experiments/solutions.py` reads them; for example,
+`best_solution("results/raw", "team", "tabu")` returns the best team solution for the route plot.
+
 **Quick check of the whole pipeline.** About 1 minute; writes to `results/smoke/`, which is not committed:
 
 ```powershell

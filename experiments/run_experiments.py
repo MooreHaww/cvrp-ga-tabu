@@ -9,6 +9,9 @@ algorithms see the same machine conditions). Run r uses seed BASE_SEED + r for
 every algorithm. Every result is validated by checker.check; runs without a
 feasible solution are kept with feasible=False. Rows are appended and flushed
 after every run; existing (instance, algo, run) rows are skipped (resume).
+
+Step 6a-3: the routes of every run are saved to <out>/solutions/<instance>_<algo>_run<r>.json
+(read them with experiments.solutions). The file is written before the CSV row.
 """
 
 from __future__ import annotations
@@ -136,8 +139,9 @@ def reference_value(name: str, inst) -> float | None:
     return None
 
 
-def run_one(task: dict) -> tuple[dict, list[dict]]:
-    """Run one (instance, algo, run) task, validate it, and build its CSV rows.
+def run_one(task: dict) -> tuple[dict, list[dict], dict]:
+    """Run one (instance, algo, run) task, validate it, and build its CSV rows and its
+    solution record (routes saved even if the check fails; None if no solution).
 
     Top-level function so it can be sent to a worker process.
     """
@@ -169,7 +173,35 @@ def run_one(task: dict) -> tuple[dict, list[dict]]:
     }
     progress = [{"instance": name, "algo": algo, "run": run, "seed": seed,
                  "elapsed_s": round(t, 4), "best_cost": c} for t, c in outcome.progress]
-    return row, progress
+    routes = None
+    if outcome.solution is not None:              # internal numbering: customers 1..n, depot 0 implicit
+        routes = [[int(v) for v in r] for r in outcome.solution.non_empty_routes()]
+    solution = {"instance": name, "algo": algo, "run": run, "seed": seed, "budget_s": budget,
+                "cost": float(cost) if cost != "" else None,
+                "n_routes": int(outcome.n_routes) if outcome.n_routes is not None else None, "feasible": feasible,
+                "routes": routes}
+    return row, progress, solution
+
+
+# --------------------------------------------------------------------------- solution files
+
+def solution_path(sol_dir: Path, instance: str, algo: str, run: int) -> Path:
+    """<sol_dir>/<instance>_<algo>_run<r>.json. Time: O(1)."""
+    return sol_dir / f"{instance}_{algo}_run{run}.json"
+
+
+def write_solution(sol_dir: Path, solution: dict) -> Path:
+    """Write one solution record as a single line of JSON with sorted keys and an LF
+    newline, so the same run always gives the same bytes. Time: O(n)."""
+    path = solution_path(sol_dir, solution["instance"], solution["algo"], solution["run"])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(solution, sort_keys=True) + "\n", newline="\n")
+    return path
+
+
+def missing_solutions(keys, sol_dir: Path) -> list[tuple[str, str, int]]:
+    """(instance, algo, run) keys whose solution file does not exist. Time: O(#keys)."""
+    return sorted(k for k in keys if not solution_path(sol_dir, *k).exists())
 
 
 # --------------------------------------------------------------------------- task list and files
@@ -265,7 +297,7 @@ def main(argv=None) -> Path:
         ensure_team_file(args.team_seed)
     write_hardware(out_dir, args.workers)
 
-    runs_csv, progress_csv = out_dir / "runs.csv", out_dir / "progress.csv"
+    runs_csv, progress_csv, sol_dir = out_dir / "runs.csv", out_dir / "progress.csv", out_dir / "solutions"
     done = done_keys(runs_csv)
     tasks = build_tasks(instances, algos, args.runs, args.budget_scale, args.team_seed, overrides, git_commit())
     todo = [t for t in tasks if (t["instance"], t["algo"], t["run"]) not in done]
@@ -275,8 +307,9 @@ def main(argv=None) -> Path:
     runs_out, progress_out = _Appender(runs_csv, RUN_COLUMNS), _Appender(progress_csv, PROGRESS_COLUMNS)
     infeasible = 0
     try:
-        def record(row, progress):
+        def record(row, progress, solution):
             nonlocal infeasible
+            write_solution(sol_dir, solution)     # file first: a CSV row always has its solution file
             runs_out.write([row])
             progress_out.write(progress)
             infeasible += not row["feasible"]
@@ -294,6 +327,11 @@ def main(argv=None) -> Path:
         runs_out.close()
         progress_out.close()
     print(f"done: {len(todo)} runs written, {len(tasks) - len(todo)} skipped, {infeasible} infeasible")
+    missing = missing_solutions(done, sol_dir)
+    if missing:
+        example = ", ".join(f"{i}/{a}/run{r}" for i, a, r in missing[:3])
+        print(f"WARNING: {len(missing)} runs in {runs_csv} have no solution file (e.g. {example}); "
+              f"they are not re-run")
     return out_dir
 
 

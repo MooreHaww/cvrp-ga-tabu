@@ -56,6 +56,26 @@ These rows are the convergence curves.
 **`hardware.txt`**: date, OS, CPU model, physical and logical cores, RAM, Python and numpy versions, git commit,
 and worker count. It uses the standard library only; any item it cannot determine reads "unknown".
 
+**`solutions/<instance>_<algo>_run<r>.json`** (Step 6a-3): one file per run, e.g. `solutions/team_tabu_run3.json`.
+It is needed for the team route plot (how many routes cross the Bosphorus) and for re-checking any run later.
+
+| field | meaning |
+|---|---|
+| instance, algo, run, seed, budget_s | as in `runs.csv` |
+| cost, n_routes, feasible | as in `runs.csv` (`null` instead of an empty cell) |
+| routes | list of routes, each a list of customer ids in the **internal numbering** (customers 1..n, depot 0 implicit, as in `cvrp.solution`); `null` if the run found no solution |
+
+- The routes are saved after `checker.check`. If the check fails, the routes are still saved, with
+  `feasible: false`, so the failure can be inspected.
+- Format: one line of JSON with sorted keys and an LF newline, so the same run always gives the same bytes.
+- The file is written by the single writer (the main process, also in `--workers` mode) **before** the CSV row. A
+  row therefore always has its file; a crash between the two writes only causes the task to be re-run.
+- Resume is unchanged: tasks are skipped by their `runs.csv` row. A row whose solution file is missing (e.g. a run
+  made before Step 6a-3) is **not** re-run; the runner prints one WARNING at the end with the count.
+- Reader: `experiments/solutions.py`, with `load_solution(path)`, `load_all(out_dir)` (sorted by instance, algo,
+  run) and `best_solution(out_dir, instance, algo)` (lowest feasible cost, ties: lowest run).
+- The tuning runner (`experiments/tuning.py`) does not save solutions.
+
 ## How to run
 
 The smoke run covers all instances with 2 runs and 5% budgets, and writes to `results/smoke/`. That folder is

@@ -137,7 +137,7 @@ def build_validation_tasks(instances, tuned: dict, runs, budget_scale, commit=""
 def tuning_row(task: dict) -> dict:
     """Run one task with run_experiments.run_one (which validates with checker.check)
     and keep the tuning columns. Top-level so it can be sent to a worker process."""
-    row, _progress = run_one(task)
+    row, _progress, _solution = run_one(task)          # tuning keeps no solution files
     return {"instance": row["instance"], "algo": row["algo"], "param_name": task["param_name"],
             "param_value": task["param_value"], "run": row["run"], "seed": row["seed"],
             "budget_s": row["budget_s"], "cost": row["cost"], "n_routes": row["n_routes"],

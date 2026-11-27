@@ -135,3 +135,16 @@ The follow-up prompt turned that finding into a second tuning round:
 
 Claude noticed that the prompt's config count ("1 + 7 = 8") did not match its own value lists (10 configs) and
 flagged it in the plan instead of silently dropping values.
+
+### #13 – Step 6a-3: save the solution of every run (Claude Code)
+The runner stored only costs, but the report needs the routes, for example to count the team-instance routes that
+cross the Bosphorus. The prompt was a precise specification:
+- the file name and fields;
+- deterministic JSON with LF newlines;
+- routes saved even when the check fails;
+- resume unchanged, with a warning instead of a re-run for missing files;
+- a small reader module, with the tests listed one by one.
+
+The prompt also asked Claude to plan first (plan mode). The plan settled one design point before any code was
+written: the solution file is written by the single writer **before** the CSV row. A crash can then only produce a
+file without a row, which a resume simply overwrites. It can never produce a row without a file.
