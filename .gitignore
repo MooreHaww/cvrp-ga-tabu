@@ -12,3 +12,7 @@ results/smoke/
 results/smoke_tuning/
 results/smoke_tuning2/
 results/smoke_timing/
+
+# Local working notes (AI-usage log and assistant rules): kept on disk, never committed
+docs/ai_usage.md
+CLAUDE.md

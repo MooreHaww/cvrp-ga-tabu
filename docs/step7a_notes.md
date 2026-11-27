@@ -79,6 +79,6 @@ It writes `docs/report_numbers.md`. Every value in it is read from a file:
 The README was restructured, keeping the existing correct content:
 - purpose, team, rules (no external solvers; allowed libraries), install, quick start and folder layout;
 - a table "report item → command → output file";
-- expected runtimes, seeds, reproducing everything (in pipeline order), tests and the AI-usage log.
+- expected runtimes, seeds, reproducing everything (in pipeline order) and tests.
 
 No student IDs appear anywhere: the seed section states the rule and the resulting value 14835 only.

@@ -155,7 +155,7 @@ cvrp-project/
     tables/            summary tables (.csv and .md)
     figures/           plots and route maps
   tests/               pytest test suite
-  docs/                course brief, step notes, report numbers sheet, AI-usage log
+  docs/                course brief, step notes, report numbers sheet
 ```
 
 ## Report items: command and output file
@@ -368,11 +368,6 @@ The suite covers, among others:
 - the experiment, tuning, analysis, timing and report-numbers scripts on small synthetic or smoke inputs.
 
 Step-by-step design notes are in `docs/step*_notes.md`.
-
-## AI usage
-
-AI tools (Claude Code) were used during development. The log of tools and example prompts for the report's Appendix B
-is in `docs/ai_usage.md`.
 
 ## Sources
 
