@@ -4,12 +4,17 @@
     "elite_count": 20,
     "pop_size": 25
   },
+  "ga_ls": {
+    "elite_count": 5,
+    "ls_neighbours": 20,
+    "pop_size": 10
+  },
   "ga_memetic": {},
   "tabu": {
     "adapt_every": 3,
     "candidate_size": 20,
     "lam_factor": 3,
-    "tenure_max": 25,
-    "tenure_min": 10
+    "tenure_max": 15,
+    "tenure_min": 5
   }
 }
