@@ -178,3 +178,26 @@ O(P·n·L) in the report, and the notes now say so.
 
 The user changed one design decision during plan review: the verdict uses a minimum slope tolerance of 0.15 next to
 2·SE, because 4 sizes give an unreliable SE. This was written into the table footer and the notes.
+
+A read-only follow-up prompt asked for specific medians from `timing.csv` and a verdict on three hypotheses. Claude
+found that `arcs_per_decode`, which the notes cited as evidence, does not count failed K-limited Splits. It therefore
+cannot show the fallback at all. The notes were corrected (Step 6d-3), and the fallback share was estimated from time
+instead and labelled an upper bound.
+
+### #16 – Step 7a: reproducibility check and report numbers sheet (Claude Code)
+The prompt asked for a check in a fresh clone outside the repository:
+- the full test suite;
+- byte-identical analysis tables;
+- figures compared only by existence and size, since PNG bytes depend on the matplotlib version;
+- both smoke runs.
+
+It also asked for a generated "report numbers" sheet in which every number is read from a file and nothing is typed
+by hand.
+
+Claude noticed that the editable install would make the clone import `cvrp` from the original checkout, which would
+have made the check meaningless. It set `PYTHONPATH` to the clone and verified the import paths first. Every table
+matched byte for byte.
+
+The sheet also compares the parameters recorded in `runs.csv` with `tuned_params.json`. This confirms that the main
+run really used the tuned values. The tests check that every commit hash in the sheet comes from the inputs, and that
+changing one input number changes the generated sentence.

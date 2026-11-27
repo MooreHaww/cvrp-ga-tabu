@@ -111,7 +111,7 @@ The smoke run uses sizes 20 and 40 with 2 repetitions and takes a few seconds. E
 - **Tabu Search iteration.** These slopes are also measured from the two end points, n = 100 and 800 (the fit in the
   table gives 1.18 too). The extra slope, **1.18** against a theory slope of 1.00, splits into two parts:
   - **1.07** from more moves per iteration: 78 → 90 moves evaluated per customer;
-  - **0.11** from the time per move: 686 → 866 ns.
+  - **0.11** from the time per move: 691 → 866 ns (n = 100 → 800).
 
   Each move simply gets slower to evaluate as n grows (a cache and memory effect).
 - **Delta vs full evaluation.**
