@@ -34,7 +34,6 @@ The code:
 - **Allowed libraries:** numpy, matplotlib, pytest, `scipy.stats.wilcoxon` (the Wilcoxon test only) and the Python
   standard library.
 - Every stochastic function takes an explicit seed; every reported solution passes `cvrp.checker.check`.
-- The full list of project rules is in `CLAUDE.md`.
 
 ## Install
 
@@ -118,7 +117,6 @@ python -m experiments.timing --smoke
 
 ```
 cvrp-project/
-  CLAUDE.md            project rules for AI-assisted sessions
   README.md
   requirements.txt, pyproject.toml
   data/

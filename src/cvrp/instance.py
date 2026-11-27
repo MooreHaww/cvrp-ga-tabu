@@ -1,7 +1,7 @@
 # Original code (CMP 3005 term project).
 """Step 1: Instance dataclass + distance functions.
 
-Conventions (see CLAUDE.md):
+Conventions:
   - vertex 0 is the depot, customers are 1..n;
   - Augerat instances use the TSPLIB EUC_2D rule  d = int(sqrt(dx^2 + dy^2) + 0.5);
   - the team (MediDrone) instance uses the unrounded Euclidean distance plus a
