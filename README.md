@@ -2,6 +2,10 @@
 
 CMP 3005 – Analysis of Algorithms, term project.
 
+![Overview: the MediDrone instance, the best team solution and the results of the 240 runs](docs/img/overview.png)
+
+Left: the 100-clinic team instance. Middle: best solution found (GA+LS, 15 routes, 20 strait crossings). Right: final gap to the best known cost, 10 runs per algorithm.
+
 ## Purpose
 
 MediDrone Istanbul (a fictional start-up) delivers medical supplies by drone from a central lab to
@@ -20,6 +24,20 @@ The code:
   - Tabu Search on route-based solutions;
 - validates every reported solution with an independent feasibility checker;
 - runs reproducible experiments (fixed seeds, equal time budgets) and writes raw CSV results, tables and figures.
+
+## Key results
+
+- **Runs:** 3 algorithms × 8 instances × 10 seeded runs = 240, with equal time budgets per instance; all 240 solutions pass `cvrp.checker.check` (0 failures).
+- **Best-known solutions reached** (4 Augerat instances × 10 runs = 40): GA+LS 28/40, Tabu Search 22/40, plain GA 0/40.
+- **Team instance:** best cost known to us 15816.26, found by GA+LS (6 of 10 runs); 15 routes and 20 strait crossings (19.0% of the cost). All 30 team solutions cross exactly 20 times.
+- **Measured slopes vs theory (n ≥ 100):** GA generation 2.01 vs 1 (fallback to the O(n²) K-limited Split); Tabu iteration 1.18 vs 1 (1.07 from moves per iteration, 0.11 from time per move); move evaluation: delta 0.25 vs 0, full 1.03 vs 1.
+- **Wilcoxon + Holm (α = 0.05):** GA+LS and Tabu Search both beat plain GA on all five larger instances; GA+LS beats Tabu Search only on the team instance (not significant on A-n45/60/80, ties on A-n32-k5).
+
+## Deliverables
+
+- Report (PDF): to be added
+- Slides: to be added
+- This repository: code, data, raw results, tables and figures
 
 ## Team
 
@@ -154,6 +172,7 @@ cvrp-project/
     figures/           plots and route maps
   tests/               pytest test suite
   docs/                course brief, step notes, report numbers sheet
+    img/               README banner
 ```
 
 ## Report items: command and output file
