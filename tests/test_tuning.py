@@ -1,5 +1,6 @@
 # Original code (CMP 3005 term project).
-"""Step 6b: OFAT grid, seeds, selection rule, analysis outputs and the smoke runner."""
+"""Step 6b: OFAT grid, seeds, selection rule, analysis outputs and the smoke runner.
+Step 6b-2: round-2 grid, seeds, named-configuration selection, loss flags, four-section JSON."""
 
 import csv
 import json
@@ -10,10 +11,11 @@ import pytest
 from cvrp.ga import GAParams, default_penalty
 from cvrp.parser import load_instance
 from cvrp.tabu import TabuParams
-from experiments.config import BASE_SEED, DEFAULT_RUNS, PROTECTED, instance_path, run_ga
-from experiments.tuning import (COLUMNS, TUNING_INSTANCES, analyze, build_tasks, build_validation_tasks, main,
-                                select, summarise)
-from experiments.tuning_grid import BASELINE, GRID, build_configs, value_label
+from experiments.config import BASE_SEED, DEFAULT_RUNS, GA_LS_BASE, PROTECTED, instance_path, run_ga
+from experiments.tuning import (COLUMNS, ROUND1, ROUND2, TUNING_INSTANCES, analyze, build_tasks,
+                                build_validation_tasks, configs_for, loss_flags, main, select, select_config,
+                                selection_rows, summarise, summarise_configs)
+from experiments.tuning_grid import BASELINE, GRID, GRID_R2, TS_CONFIGS_R2, build_configs, n_changes, value_label
 
 FINAL = set(range(BASE_SEED, BASE_SEED + DEFAULT_RUNS))
 
@@ -188,3 +190,152 @@ def test_smoke_run_and_resume(tmp_path):
     main(args)                                            # resume: nothing new
     with (tmp_path / "runs.csv").open(newline="") as f:
         assert len(list(csv.DictReader(f))) == 3
+
+
+# =========================================================================== round 2 (Step 6b-2)
+
+TS_NAMES = [name for name, _ in TS_CONFIGS_R2]
+
+
+def test_round2_grid_sizes():
+    assert len(configs_for(ROUND2, "tabu")) == 7
+    assert all(c[0] == "config" for c in configs_for(ROUND2, "tabu"))
+    ga_ls = configs_for(ROUND2, "ga_ls")
+    assert len(ga_ls) == 10 and [c[:2] for c in ga_ls].count(BASELINE) == 1
+    assert configs_for(ROUND1, "tabu") == build_configs("tabu")          # round 1 unchanged
+
+
+def test_round2_ga_ls_defaults_match_ga_ls_base():
+    defaults = {**{f.name: f.default for f in fields(GAParams)}, **GA_LS_BASE}
+    for factor in GRID_R2["ga_ls"]:
+        for key, value in zip(factor.keys, factor.default):
+            assert defaults[key] == value, key
+
+
+def test_round2_n_changes():
+    ts = {f.name: f.default for f in fields(TabuParams)}
+    assert [n_changes(ov, ts) for _, ov in TS_CONFIGS_R2] == [0, 3, 2, 2, 2, 4, 1]
+
+
+def test_round2_seeds():
+    tasks = build_tasks(ROUND2.instances, ROUND2.algos, 5, 1.0, rnd=ROUND2)
+    assert len(tasks) == 17 * 4 * 5 and {t["budget"] for t in tasks} == {15.0}
+    assert {t["seed"] for t in tasks} == set(range(1010, 1015))
+    val = build_validation_tasks(ROUND2.instances, {"tabu": {"lam0_scale": 3}}, 5, 1.0, rnd=ROUND2)
+    assert len(val) == 80 and {t["seed"] for t in val} == set(range(1015, 1020))
+    used = {t["seed"] for t in tasks + val}
+    assert not used & set(range(1000, 1010)) and not used & FINAL
+
+
+def _ts_rows(cells: dict, instances=("A-n45-k6", "A-n60-k9")):
+    """Synthetic round-2 TS rows: cells = {config: gaps or (gaps, feasible)}."""
+    rows = []
+    for name, spec in cells.items():
+        gaps, feas = spec if isinstance(spec, tuple) else (spec, None)
+        for inst in instances:
+            rows += _rows("tabu", "config", name, inst, gaps, feas)
+    return rows
+
+
+def _select_ts(cells):
+    summary = summarise_configs(_ts_rows(cells), None, "tabu", TS_CONFIGS_R2)
+    return select_config(summary, "tabu", TS_CONFIGS_R2, {f.name: f.default for f in fields(TabuParams)})
+
+
+def test_select_config_prefers_fewest_changes_within_one_se():
+    name, overrides, within = _select_ts({
+        "default": [4.0, 5.0, 6.0],
+        "tuned_all": [0.9, 1.0, 1.1],               # best mean (3 changes)
+        "tuned_minus_tenure": [0.3, 1.3, 2.3],      # 0.3 worse, SE about 0.41 -> within one SE, 2 changes
+        "default_lam0x3": [2.9, 3.0, 3.1]})         # 1 change but far outside one SE
+    assert within == {"tuned_all", "tuned_minus_tenure"}
+    assert name == "tuned_minus_tenure" and overrides == dict(TS_CONFIGS_R2)["tuned_minus_tenure"]
+
+
+def test_select_config_takes_best_when_others_outside_se():
+    name, _, within = _select_ts({"default": [4.0, 5.0, 6.0], "tuned_all": [0.9, 1.0, 1.1],
+                                  "tuned_minus_tenure": [1.30, 1.31, 1.32]})
+    assert name == "tuned_all" and within == {"tuned_all"}
+
+
+def test_select_config_excludes_more_failures_and_unknown_se():
+    name, _, _ = _select_ts({"default": [4.0, 5.0, 6.0],
+                             "tuned_all": ([0.9, 1.0, 1.1], [True, True, False]),
+                             "default_lam0x3": [2.9, 3.0, 3.1]})
+    assert name == "default_lam0x3"                  # tuned_all has more failures than the default
+    name, overrides, within = _select_ts({"default": [5.0], "tuned_all": [1.0]})   # 1 run: SE unknown
+    assert (name, overrides, within) == ("default", {}, set())
+
+
+def test_loss_flag_on_instance_worse_than_default():
+    rows = (_rows("tabu", "config", "default", "A-n45-k6", [0.0, 0.1, 0.2])
+            + _rows("tabu", "config", "default", "A-n60-k9", [9.0, 10.0, 11.0])
+            + _rows("tabu", "config", "tuned_all", "A-n45-k6", [0.8, 0.9, 1.0])     # +0.8 pp on A-n45
+            + _rows("tabu", "config", "tuned_all", "A-n60-k9", [1.0, 1.1, 1.2]))
+    summary = summarise_configs(rows, None, "tabu", TS_CONFIGS_R2)
+    ts_defaults = {f.name: f.default for f in fields(TabuParams)}
+    name, _, within = select_config(summary, "tabu", TS_CONFIGS_R2, ts_defaults)
+    assert name == "tuned_all"
+    assert loss_flags(summary, "tabu", "config", name, "default") == "A-n45-k6 +0.80 pp"
+    table = selection_rows(summary, "tabu", "config", TS_NAMES, "default", name, within,
+                           {n: n_changes(ov, ts_defaults) for n, ov in TS_CONFIGS_R2})
+    chosen = [r for r in table if r["chosen"]]
+    assert len(table) == 2 and len(chosen) == 1 and chosen[0]["loss_flag"] == "A-n45-k6 +0.80 pp"
+    assert chosen[0]["mean_A-n45-k6"] == pytest.approx(0.9) and chosen[0]["n_changes"] == 3
+
+
+def _write(path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNS)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def test_analyze_round2_writes_four_sections(tmp_path):
+    out = tmp_path / "tuning2"
+    rows = []
+    for inst in ("A-n45-k6", "team"):
+        rows += _rows("ga_ls", "baseline", "default", inst, [4.0, 5.0, 6.0])
+        rows += _rows("ga_ls", "pop_size", "25", inst, [0.9, 1.0, 1.1])          # clear gain -> changed
+        rows += _rows("tabu", "config", "default", inst, [4.0, 5.0, 6.0])
+        rows += _rows("tabu", "config", "tuned_all", inst, [0.9, 1.0, 1.1])
+    _write(out / "runs.csv", rows)
+    _write(out / "validation_runs.csv",
+           _rows("tabu", "validation", "default", "A-n45-k6", [0.0, 0.1]) +
+           _rows("tabu", "validation", "tuned", "A-n45-k6", [1.0, 1.1]))         # +1 pp on one instance
+    round1 = tmp_path / "tuning"
+    _write(round1 / "runs.csv", _rows("ga", "baseline", "default", "team", [-10.0]))   # cost 900 < 1000
+    tuned_path = tmp_path / "tuned.json"
+    tuned_path.write_text(json.dumps({"ga": {"pop_size": 25}, "tabu": {"candidate_size": 20}, "ga_memetic": {}}))
+    tables, figures = tmp_path / "tables", tmp_path / "figures"
+    res = analyze(out, tables, figures, tuned_path, ROUND2, ref_dirs=(round1,))
+    assert res["team_ref"] == pytest.approx(900.0)                              # round-1 runs included
+    for name in ("tuning2_summary.csv", "tuning2_selection.csv", "tuning2_validation.csv"):
+        assert (tables / name).exists()
+    assert (figures / "sensitivity_ga_ls_pop_size.png").exists() and (figures / "tuning2_tabu_configs.png").exists()
+    tuned = json.loads(tuned_path.read_text())
+    assert set(tuned) == {"ga", "ga_ls", "tabu", "ga_memetic"}
+    assert tuned["ga"] == {"pop_size": 25} and tuned["ga_ls"] == {"pop_size": 25}
+    assert tuned["tabu"] == dict(TS_CONFIGS_R2)["tuned_all"] and tuned["ga_memetic"] == {}
+    assert not any(PROTECTED & set(section) for section in tuned.values())
+    assert any("A-n45-k6" in w and "validation" in w for w in res["warnings"])
+    # a round-1 analysis must not overwrite the round-2 file
+    _write(tmp_path / "r1" / "runs.csv", _synthetic())
+    with pytest.raises(SystemExit):
+        analyze(tmp_path / "r1", tables, figures, tuned_path)
+
+
+def test_round2_smoke_run_and_resume(tmp_path):
+    args = ["run", "--round", "2", "--algos", "tabu", "--instances", "A-n45-k6", "--runs", "1",
+            "--budget-scale", "0.01", "--out", str(tmp_path)]
+    main(args)
+    with (tmp_path / "runs.csv").open(newline="") as f:
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 7 and [r["param_value"] for r in rows] == TS_NAMES
+    assert {(r["param_name"], r["run"], r["seed"], r["budget_s"]) for r in rows} == {("config", "10", "1010", "0.15")}
+    lam0 = {r["param_value"]: json.loads(r["params_json"])["lam0_scale"] for r in rows}
+    assert lam0["default_lam0x3"] == 3 and lam0["tuned_all_lam0x3"] == 3 and lam0["default"] == 1.0
+    main(args)                                            # resume: nothing new
+    with (tmp_path / "runs.csv").open(newline="") as f:
+        assert len(list(csv.DictReader(f))) == 7

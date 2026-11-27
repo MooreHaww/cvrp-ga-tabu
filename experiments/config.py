@@ -122,11 +122,13 @@ def run_ga_memetic(inst: Instance, seed: int, budget: float, overrides: dict) ->
     return _run_ga(inst, seed, budget, overrides, base={"memetic": True})
 
 
+# Settings that define the ga_ls variant (on top of the GAParams defaults); overrides win.
+GA_LS_BASE = {"memetic": True, "ls_mode": "full", "local_search_prob": 0.5}
+
+
 def run_ga_ls(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:
-    """Memetic GA with the granular inter-route descent (Step 4c); local_search_prob 0.5
-    until it is tuned. Time: the budget."""
-    return _run_ga(inst, seed, budget, overrides,
-                   base={"memetic": True, "ls_mode": "full", "local_search_prob": 0.5})
+    """Memetic GA with the granular inter-route descent (Step 4c). Time: the budget."""
+    return _run_ga(inst, seed, budget, overrides, base=GA_LS_BASE)
 
 
 def run_tabu(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:

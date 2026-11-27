@@ -121,3 +121,17 @@ Two good decisions came out of the planning:
 
 The 10 s sanity runs went from 1408 to 1358 on A-n60-k9 (0.30% gap) and reached the BKS on A-n32-k5. They also
 revealed that Tabu Search with default parameters does not improve on CW on the new team instance.
+
+### #12 – Step 6b-2: second tuning round (Claude Code)
+A diagnostic prompt (Step 5c) first asked for a trace of TS on the team instance, with the explicit rule "no commit
+unless it exposes a bug". The trace showed no bug: the starting penalty λ0 was below the marginal price of overload,
+so the search dived into infeasible space and stalled on a plateau above CW.
+
+The follow-up prompt turned that finding into a second tuning round:
+- one minimal code change, a `lam0_scale` parameter, proven harmless by a byte-identical fingerprint at the default;
+- named TS configurations that drop one round-1 change at a time, to expose the interaction behind the A-n45-k6 loss;
+- a "fewest changes within one SE" rule, so a simpler configuration wins when the data cannot separate it from the best;
+- new seeds (1010–1019), so neither round-1 nor final seeds are reused.
+
+Claude noticed that the prompt's config count ("1 + 7 = 8") did not match its own value lists (10 configs) and
+flagged it in the plan instead of silently dropping values.

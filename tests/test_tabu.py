@@ -255,3 +255,21 @@ def test_params_validation():
         TabuParams(seed=0)
     with pytest.raises(ValueError):
         TabuParams(seed=0, max_iterations=1, moves=("relocate", "teleport"))
+
+
+# --- Step 5c / 6b-2: initial lambda scale -------------------------------------------
+
+def test_lam0_scale_multiplies_initial_lambda():
+    """With max_iterations=0 no iteration runs, so final_lambda is the starting lambda."""
+    inst = load_instance(ROOT / "data/team/team_n100_seed14835.vrp")
+    base = tabu_search(inst, TabuParams(seed=0, max_iterations=0)).final_lambda
+    cw = clarke_wright(inst, warn=False).cost
+    assert base == pytest.approx(cw / inst.total_demand())         # 11.7 on this instance
+    three = tabu_search(inst, TabuParams(seed=0, max_iterations=0, lam0_scale=3)).final_lambda
+    assert three == pytest.approx(3 * base)
+
+
+@pytest.mark.parametrize("bad", [0, -1.0])
+def test_lam0_scale_must_be_positive(bad):
+    with pytest.raises(ValueError):
+        TabuParams(seed=0, max_iterations=1, lam0_scale=bad)

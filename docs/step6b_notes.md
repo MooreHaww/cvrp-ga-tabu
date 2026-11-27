@@ -168,3 +168,154 @@ python -m experiments.run_experiments --params-file experiments/tuned_params.jso
 - **Short budgets.** The study uses 10 s versus 30–60 s in the final runs. Settings that pay off late, such as a
   larger population, may be undervalued.
 - **Team reference = the best cost seen.** It is not a proven optimum, so team gaps are relative, not absolute.
+
+## Round 1 result (kept here because round 2 rewrites `experiments/tuned_params.json`)
+
+`experiments/tuned_params.json` after round 1 (commit 53857f9):
+
+```json
+{
+  "ga": {"crossover_rate": 0.6, "elite_count": 20, "pop_size": 25},
+  "ga_memetic": {},
+  "tabu": {"adapt_every": 3, "candidate_size": 20, "lam_factor": 3, "tenure_max": 25, "tenure_min": 10}
+}
+```
+
+Round-1 validation (`results/tables/tuning_validation.csv`, mean normalised gap %, seeds 1005–1009):
+
+| algo | A-n45-k6 | A-n60-k9 | team | average |
+|---|---|---|---|---|
+| ga default → tuned | 10.678 → 4.025 | 3.988 → 3.959 | 4.201 → 3.912 | 6.289 → 3.965 |
+| tabu default → tuned | **0.000 → 0.847** | 0.901 → 0.665 | 3.087 → 0.874 | 1.329 → 0.795 |
+
+The tuned TS is better on average but **worse on A-n45-k6**, which hints at an interaction between its three changes.
+
+# Round 2 (Step 6b-2)
+
+## Motivation
+1. **TS interactions.** Round 1 changed three TS parameters at once (tenure 10–25, candidate_size 20, λ ×3 every 3).
+   OFAT cannot see their interaction, and the validation showed a loss on A-n45-k6.
+2. **The real cause of the team-instance stall** is a too-low starting penalty λ0 (`docs/step5_notes.md`, last
+   section). Round 2 adds the direct knob `lam0_scale` and tests it.
+3. **`ga_ls`** (memetic GA with the inter-route descent, Step 4c) is new and has never been tuned.
+
+The plain GA keeps its round-1 values. `ga_memetic` (intra-route 2-opt only) stays at `{}`.
+
+## Design
+
+| Item | Choice |
+|---|---|
+| Seeds | Selection runs r = 10..14 (seeds **1010–1014**), validation runs r = 15..19 (seeds **1015–1019**). Never 1000–1009 (round 1) or 20260–20269 (final); a test checks both. |
+| Instances | A-n45-k6, A-n60-k9, **A-n80-k10**, team (seed 14835). A-n80-k10 is added because default TS stalled there in Step 5. |
+| Budget | **15 s** per run. `ga_ls` spends 85–90% of its time in the descent and completes only about 30–60 generations in 10 s (Step 4c), so 10 s would say little about its population settings. |
+| Output | `results/tuning2/` and `results/tables/tuning2_*.csv`. Round-1 files are never touched. |
+
+**Tabu Search: named configurations, not OFAT** (`TS_CONFIGS_R2` in `tuning_grid.py`, `param_name = config`):
+
+| config | overrides | changes |
+|---|---|---|
+| default | – | 0 |
+| tuned_all | tenure 10–25, candidate_size 20, λ ×3 every 3 (= round 1) | 3 |
+| tuned_minus_tenure | tuned_all with tenure back to 5–15 | 2 |
+| tuned_minus_cand | tuned_all with candidate_size back to 10 | 2 |
+| tuned_minus_lambda | tuned_all with λ adaptation back to ×1.5 every 10 | 2 |
+| tuned_all_lam0x3 | tuned_all + lam0_scale 3 | 4 |
+| default_lam0x3 | lam0_scale 3 only | 1 |
+
+"Changes" counts parameter **groups** that differ from `TabuParams()`: the tenure pair and the λ-adaptation pair each
+count as one (`n_changes`).
+
+**TS selection rule** (`select_config`):
+1. Eligible: configurations with a known SE and no more failures than the default.
+2. best = the eligible configuration with the lowest instance-averaged mean gap.
+3. "Within one SE": `mean − mean_best ≤ max(SE_best, SE_config)`.
+4. Choose the configuration within one SE with the **fewest changes** (ties: the lower mean). A simpler configuration
+   that is statistically indistinguishable from the best is preferred.
+5. If the default's SE is unknown (fewer than 2 feasible runs, e.g. the smoke run), keep the default.
+
+**ga_ls: OFAT** around the `ga_ls` defaults (`GAParams()` + `GA_LS_BASE` = memetic, ls_mode full,
+local_search_prob 0.5), with the round-1 rule (`select`):
+
+| parameter | values ([default]) |
+|---|---|
+| local_search_prob | 0.1, 0.3, [0.5], 1.0 |
+| pop_size | 10, 25, [50] |
+| ls_neighbours | 5, [10], 20 |
+| elite_count | [2], 5, 10 |
+| **total** | 9 non-default + 1 baseline = **10 configs** |
+
+The Step 6b-2 prompt said "1 + 7 = 8 configs", but its own value lists give 9 non-default values; the lists were
+followed.
+
+**Loss flags.** `tuning2_selection.csv` has one row per candidate (ga_ls values and TS configurations) with the
+per-instance means, `n_changes`, `within_se`, `chosen` and `loss_flag`. The flag lists every instance where the
+chosen non-default value/configuration is worse than the default by **more than 0.5 percentage points**; `analyze`
+also prints it as a WARNING. It does not change the choice: the decision stays with the team.
+
+**Team reference** = the best feasible team cost in rounds 1 **and** 2 (study and validation runs), so all team gaps
+share one reference.
+
+**`experiments/tuned_params.json`** after round 2 has exactly four sections: `ga` (copied unchanged from the existing
+file = round 1), `ga_ls` (round 2), `tabu` (the overrides of the chosen configuration) and `ga_memetic` (`{}`). Every
+section is checked against `PROTECTED`. A round-1 `analyze` now **refuses** to overwrite a file that has a `ga_ls`
+section (use `--tuned <other file>` for a round-1 re-analysis).
+
+**Validation.** `run --round 2 --validate` runs default vs tuned for tabu and ga_ls on the held-out seeds 1015–1019.
+`analyze --round 2` then writes `tuning2_validation.csv` and warns if tuned is worse on average by more than the larger
+SE, or worse on **any single instance by more than 0.5 pp**.
+
+## Outputs (round 2)
+
+| File | Content |
+|---|---|
+| `results/tuning2/runs.csv`, `validation_runs.csv`, `hardware.txt` | raw runs (same columns as round 1) |
+| `results/tables/tuning2_summary.csv` | mean, std, SE, failures per (algo, param, value, instance) + average |
+| `results/tables/tuning2_selection.csv` | one row per candidate with per-instance means, within_se, chosen, loss_flag |
+| `results/tables/tuning2_validation.csv` | tuned vs default per instance + average |
+| `results/figures/sensitivity_ga_ls_<param>.png` | 4 plots |
+| `results/figures/tuning2_tabu_configs.png` | the 7 TS configurations, per instance (SE bars) and averaged |
+
+## Runtime (round 2)
+
+| Stage | Count | 1 worker | `--workers 3` |
+|---|---|---|---|
+| Study | (7 TS + 10 ga_ls) configs × 4 instances × 5 runs = **340 runs** × 15 s = 5,100 s | ≈ 85 min | ≈ 28 min |
+| Validation | 2 algorithms × 2 configs × 4 instances × 5 runs = **80 runs** × 15 s = 1,200 s | 20 min | ≈ 7 min |
+| Smoke run | 17 × 4 × 1 run × 0.75 s = 68 runs | ≈ 1 min | |
+
+## Commands (round 2; PowerShell, repo root, venv active)
+
+```powershell
+python -m experiments.tuning run --round 2 --smoke
+```
+
+```powershell
+python -m experiments.tuning analyze --round 2 --smoke
+```
+
+```powershell
+python -m experiments.tuning run --round 2 --workers 3
+```
+
+```powershell
+python -m experiments.tuning analyze --round 2
+```
+
+```powershell
+python -m experiments.tuning run --round 2 --validate --workers 3
+```
+
+```powershell
+python -m experiments.tuning analyze --round 2
+```
+
+The smoke commands write everything (tables, plots, JSON) inside `results/smoke_tuning2/`, which is git-ignored.
+
+## Limitations (round 2)
+
+- **15 s vs 30–60 s** final budgets: late-paying settings (larger populations, a higher λ0) may still be undervalued.
+- **5 runs per cell**: SEs stay wide; the fewest-changes rule deliberately prefers simpler configurations when the
+  data cannot separate them.
+- **The TS configurations are not exhaustive**: they test removing each round-1 change and adding `lam0_scale = 3`,
+  not every combination or other λ0 values.
+- **OFAT for ga_ls**: interactions between its parameters are covered only by the validation step.

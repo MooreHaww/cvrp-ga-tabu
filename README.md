@@ -211,6 +211,42 @@ python -m experiments.tuning analyze
 python -m experiments.run_experiments --params-file experiments/tuned_params.json
 ```
 
+### Parameter study, round 2 (Step 6b-2)
+
+Named Tabu Search configurations (drops each round-1 change in turn, adds `lam0_scale = 3`) and an OFAT study of
+`ga_ls`: 17 configurations × 4 instances (adds A-n80-k10) × 5 runs × 15 s on seeds 1010–1014, validation on
+1015–1019. Outputs go to `results/tuning2/` and `results/tables/tuning2_*.csv`; round-1 files are not touched.
+Details are in `docs/step6b_notes.md` (Round 2).
+
+**Quick check** (into `results/smoke_tuning2/`, not committed):
+
+```powershell
+python -m experiments.tuning run --round 2 --smoke
+```
+
+**Study.** About 85 minutes, or about 28 minutes with `--workers 3`. It can be resumed:
+
+```powershell
+python -m experiments.tuning run --round 2 --workers 3
+```
+
+**Analysis.** Writes `tuning2_summary.csv`, `tuning2_selection.csv`, the plots and `experiments/tuned_params.json`
+(sections `ga`, `ga_ls`, `tabu`, `ga_memetic`):
+
+```powershell
+python -m experiments.tuning analyze --round 2
+```
+
+**Validation** (80 runs, about 7 minutes with 3 workers), then analyze again:
+
+```powershell
+python -m experiments.tuning run --round 2 --validate --workers 3
+```
+
+```powershell
+python -m experiments.tuning analyze --round 2
+```
+
 Still to come:
 - TODO Step 6c: summary tables, convergence plots, route plots and Wilcoxon test;
 - TODO Step 7: final report figures.

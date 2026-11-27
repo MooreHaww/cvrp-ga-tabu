@@ -261,3 +261,32 @@ tuning, so it goes to the Step 6b parameter study.
 All results pass the checker. Iterations per second drop by about 10–20%, the cost of the repair moves and the
 null-move check. A-n60-k9 and A-n80-k10 are still a few percent above the BKS with default λ, and the team instance
 gains little; these are targets for Step 6b.
+
+## Team instance: λ0 too low (Step 5c diagnostic, fixed as a parameter in Step 6b-2)
+
+**Symptom.** On the team instance (seed 14835, CW = 16599.05, 15 routes), default TS ends at the CW cost for most seeds,
+even with 30 s.
+
+**Diagnosis** (scratch trace, seeds 1000–1004, not committed; no code bug was found):
+- The starting penalty is λ0 = CW distance / total demand = **11.68 per unit of overload**.
+- Iteration 1 is a 2-opt* with distance −464 and overload 32, i.e. ≈ 14.5 distance saved per unit of overload.
+  That is more than λ0, so the move is the best one and the search dives into infeasible space. By iteration 10 the
+  distance is 16063 with overload 18–20.
+- λ then rises ×1.5 every 10 infeasible iterations, to 674 by iteration 100. The search returns to feasibility at
+  ≈ 17060 (2.8% above CW), on a plateau far from the CW region.
+- From there it oscillates between overload 0 and 1 in the band 16970–17089, with λ between 59 and 133. About 49% of
+  the iterations are infeasible, and it visits 922–931 distinct states per 1000 iterations.
+- Seed 1000 is still stuck after 30 s. Seed 1004 escaped after ≈ 4000 iterations (16408.54 at 30 s). Seed 1001
+  escaped only when λ fell to 7.8 (an overload-369 excursion).
+- Correctness checks: `verify_deltas` OK; aspiration never accepted an infeasible solution; no better solution was
+  missed; the K-slot handling is correct.
+
+**Root cause.** It is a parameter problem, not a bug: **λ0 is below the marginal price of overload** on this instance.
+The P = 150 side penalty makes long cross-side arcs very expensive, so the first inter-route moves save a lot of
+distance per unit of overload. A soft-capacity search that starts too cheap spends its first hundreds of iterations
+leaving the good CW region and then cannot find its way back.
+
+**Knob.** `TabuParams.lam0_scale` (default 1.0, must be > 0) sets λ0 = `lam0_scale` · CW / Σq. With 1.0 the code is
+byte-identical to before (fingerprint of cost, iterations, moves evaluated, progress, routes and final λ on A-n32-k5
+and team, seed 0, 300 iterations: IDENTICAL). Round 1 of the tuning fixed the team instance indirectly, by making λ
+adapt faster (×3 every 3 iterations). Round 2 tests `lam0_scale = 3` directly (`docs/step6b_notes.md`, Round 2).

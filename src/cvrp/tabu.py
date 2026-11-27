@@ -64,6 +64,8 @@ class TabuParams:
     verify_deltas: bool = False                # tests only: recompute f after every move and compare
     repair_after: int | None = 10              # after this many infeasible iterations in a row, also try
                                                # repair moves from overloaded routes to ALL positions (None = off)
+    lam0_scale: float = 1.0                    # initial lambda = lam0_scale * (CW distance / total demand);
+                                               # > 1 makes overload expensive from the start (Step 5c)
 
     def __post_init__(self) -> None:
         """Validate. Time: O(1)."""
@@ -80,6 +82,8 @@ class TabuParams:
             raise ValueError("candidate_size must be >= 1 or None")
         if self.repair_after is not None and self.repair_after < 0:
             raise ValueError("repair_after must be >= 0 or None")
+        if not self.lam0_scale > 0:
+            raise ValueError("lam0_scale must be > 0")
 
 
 @dataclass
@@ -312,8 +316,8 @@ def tabu_search(inst: Instance, params: TabuParams) -> TabuResult:
     neigh = neighbours(state.D, inst.n, params.candidate_size)
     moves = set(params.moves)
     tabu = TabuList(params.tenure_min, params.tenure_max)
-    lam_ctrl = LambdaController(cw_cost / inst.total_demand(), params.lam_factor, params.adapt_every,
-                                params.lam_min, params.lam_max)
+    lam_ctrl = LambdaController(params.lam0_scale * cw_cost / inst.total_demand(), params.lam_factor,
+                                params.adapt_every, params.lam_min, params.lam_max)
     # The penalised objective f = state.dist + lambda * state.over is never stored: dist and over are
     # kept incrementally, so f is always recomputed with the CURRENT lambda (also right after it changes).
 
