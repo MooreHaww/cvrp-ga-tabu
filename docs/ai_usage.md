@@ -108,3 +108,16 @@ Claude pointed out two design gaps before coding:
 - a per-instance λ cannot be written into a per-algorithm params file, so the GA penalty is stored as a multiplier
   (`penalty_scale`);
 - validating on the selection seeds would be biased, so validation uses the held-out tuning seeds 1005–1009.
+
+### #11 – Step 4c: memetic GA with inter-route local search (Claude Code)
+The Step 6b data showed that the plain GA never improved on its Clarke–Wright seed on A-n60-k9 and on the team
+instance. The prompt named the cause (no inter-route moves) and asked for a granular first-improvement descent built
+from the existing O(1) deltas, as a new memetic mode. The plain GA had to stay bit-identical as a baseline.
+
+Two good decisions came out of the planning:
+- the candidate-move generator was moved out of Tabu Search, so "granular move" has a single definition; a
+  before/after fingerprint proved that TS and the plain GA were unchanged;
+- the local-optimum test uses an independent brute-force oracle instead of the generator under test.
+
+The 10 s sanity runs went from 1408 to 1358 on A-n60-k9 (0.30% gap) and reached the BKS on A-n32-k5. They also
+revealed that Tabu Search with default parameters does not improve on CW on the new team instance.

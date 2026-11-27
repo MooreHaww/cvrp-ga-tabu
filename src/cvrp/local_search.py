@@ -9,6 +9,9 @@ vehicle-routing problem", INFORMS Journal on Computing 15(4), 2003.
 Part 1 (below): two_opt_route / improve_solution_2opt used by the memetic GA.
 Part 2 (further down): pure delta functions for relocate, swap, 2-opt* and
 intra-route 2-opt, used by Tabu Search and reusable by the GA.
+Part 3 (end): granular candidate lists and moves (shared by Tabu Search and
+descent) and descent(), the first-improvement local search of the "full"
+memetic GA (Step 4c).
 
 A route 0 - r_1 - ... - r_m - 0 is treated as the path P = (0, r_1, ..., r_m, 0).
 Reversing the segment P[a..b] (1 <= a < b <= m) replaces the edges
@@ -21,9 +24,12 @@ computed in O(1) because d is symmetric (the reversed inner edges keep their len
 
 from __future__ import annotations
 
+import random
+
 from cvrp.instance import Instance
 
 EPS = 1e-9  # a move must improve by more than this (avoids cycling on float noise)
+MOVE_TYPES = ("relocate", "swap", "two_opt_star", "two_opt")
 
 
 def two_opt_route(inst: Instance, route: list[int]) -> list[int]:
@@ -298,3 +304,142 @@ def apply_two_opt_intra(routes, r, a, b) -> list[list[int]]:
     route[a:b + 1] = route[a:b + 1][::-1]
     new[r] = route
     return new
+
+
+# =============================================================================
+# Part 3: granular candidate moves (shared with Tabu Search) and descent (Step 4c).
+# =============================================================================
+
+def neighbours(D, n: int, k: int | None) -> list[list[int]]:
+    """Granular candidate list: the k nearest customers of every customer (k=None: all).
+    Index 0 (depot) gets an empty list. Time: O(n^2 log n), done once."""
+    result: list[list[int]] = [[]]
+    for c in range(1, n + 1):
+        others = sorted((v for v in range(1, n + 1) if v != c), key=lambda v: (D[c][v], v))
+        result.append(others if k is None else others[:k])
+    return result
+
+
+def customer_moves(c: int, routes, where, neigh_c: list[int], moves):
+    """Granular candidate moves of customer c (generator): every move makes c adjacent
+    to one of its nearest neighbours nb. where[v] = (route index, position) of customer v.
+
+    The same definition is used by Tabu Search (tabu._State.candidates) and by descent().
+    Time: O(len(neigh_c)) moves, at most 5 per neighbour.
+    """
+    r, i = where[c]
+    for nb in neigh_c:
+        rn, jn = where[nb]
+        if "relocate" in moves:
+            if rn != r:
+                yield "relocate", (r, i, rn, jn)          # c just before nb
+                yield "relocate", (r, i, rn, jn + 1)      # c just after nb
+            else:
+                jn2 = jn if jn < i else jn - 1           # index of nb once c is removed
+                if jn2 != i:
+                    yield "relocate", (r, i, r, jn2)
+                if jn2 + 1 != i:
+                    yield "relocate", (r, i, r, jn2 + 1)
+        if "swap" in moves:
+            yield "swap", (r, i, rn, jn)
+        if rn != r and "two_opt_star" in moves:
+            yield "two_opt_star", (r, i + 1, rn, jn)    # new arc (c, nb)
+        if rn == r and "two_opt" in moves:
+            if i + 1 < jn:
+                yield "two_opt", (r, i + 1, jn)           # ... c, nb ...
+            elif jn + 1 < i:
+                yield "two_opt", (r, jn + 1, i)           # ... nb, c ...
+
+
+def move_delta(kind: str, args: tuple, D, q, Q: int, routes, loads, prefix) -> tuple[float, int]:
+    """(delta_distance, delta_overload) of a move with the O(1) functions above. Time: O(1)."""
+    if kind == "relocate":
+        return relocate_delta(D, q, Q, routes, loads, *args)
+    if kind == "swap":
+        return swap_delta(D, q, Q, routes, loads, *args)
+    if kind == "two_opt_star":
+        return two_opt_star_delta(D, Q, routes, loads, prefix, *args)
+    return two_opt_intra_delta(D, routes, *args)
+
+
+def apply_move(kind: str, args: tuple, routes) -> list[list[int]]:
+    """Routes after a move (new outer list, touched routes copied). Time: O(K + L)."""
+    if kind == "relocate":
+        return apply_relocate(routes, *args)
+    if kind == "swap":
+        return apply_swap(routes, *args)
+    if kind == "two_opt_star":
+        return apply_two_opt_star(routes, *args)
+    return apply_two_opt_intra(routes, *args)
+
+
+def descent(inst: Instance, routes: list[list[int]], neighbour_lists: list[list[int]],
+            rng: random.Random | None = None, moves: tuple[str, ...] = MOVE_TYPES,
+            max_passes: int | None = None, D=None, stats: dict | None = None) -> list[list[int]]:
+    """First-improvement descent over granular relocate / swap / 2-opt* / 2-opt moves.
+
+    For every customer c (fixed order 1..n, or shuffled by rng each pass) the
+    candidate moves of customer_moves() are scanned; the FIRST move with
+    delta_distance < -1e-9 that keeps every load <= Q is applied, then the scan
+    goes on with the next customer. It stops after a full pass without any
+    improvement (a local optimum w.r.t. the granular neighbourhood) or after
+    max_passes passes.
+
+    Hard capacity: the input must be capacity-feasible (Split and Clarke–Wright
+    always are; otherwise ValueError). Then all overloads are 0, so a move keeps
+    every load <= Q exactly when its delta_overload is 0.
+    No route is ever created (moves only target routes that hold a neighbour);
+    routes that become empty are dropped, so the route count never increases.
+
+    Time per pass: O(n * kappa * m) O(1) delta evaluations (kappa = neighbours per
+    customer, m <= 5 moves per neighbour) + O(K + L) per applied move. Every
+    applied move lowers the distance, so the number of passes is finite; it is an
+    empirical quantity, reported in stats ('passes', 'moves_applied', 'evaluated').
+    D: optional distance matrix as nested lists (saves an O(n^2) conversion per call).
+    """
+    if D is None:
+        D = inst.dist.tolist()
+    q, Q, n = [int(x) for x in inst.demand], inst.Q, inst.n
+    move_set = set(moves)
+    if not move_set or move_set - set(MOVE_TYPES):
+        raise ValueError(f"moves must be a non-empty subset of {MOVE_TYPES}")
+    routes = [list(r) for r in routes]
+    loads, prefix = [0] * len(routes), [[0] for _ in routes]
+    where = [(-1, -1)] * (n + 1)
+
+    def refresh(r: int) -> None:
+        """Recompute load, prefix loads and positions of route r. Time: O(len(route))."""
+        pre = [0]
+        for k, c in enumerate(routes[r]):
+            pre.append(pre[-1] + q[c])
+            where[c] = (r, k)
+        prefix[r], loads[r] = pre, pre[-1]
+
+    for r in range(len(routes)):
+        refresh(r)
+    if any(load > Q for load in loads):
+        raise ValueError("descent needs a capacity-feasible input (every load <= Q)")
+
+    order = list(range(1, n + 1))
+    passes = applied = evaluated = 0
+    while max_passes is None or passes < max_passes:
+        passes += 1
+        if rng is not None:
+            rng.shuffle(order)
+        improved = False
+        for c in order:
+            for kind, args in customer_moves(c, routes, where, neighbour_lists[c], move_set):
+                evaluated += 1
+                dd, dover = move_delta(kind, args, D, q, Q, routes, loads, prefix)
+                if dd < -EPS and dover == 0:
+                    routes = apply_move(kind, args, routes)
+                    for r in ({args[0]} if kind == "two_opt" else {args[0], args[2]}):
+                        refresh(r)
+                    applied += 1
+                    improved = True
+                    break                    # positions changed: continue with the next customer
+        if not improved:
+            break
+    if stats is not None:
+        stats.update(passes=passes, moves_applied=applied, evaluated=evaluated)
+    return [r for r in routes if r]

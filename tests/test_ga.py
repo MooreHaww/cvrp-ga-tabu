@@ -168,3 +168,37 @@ def test_two_opt_never_worse(a32):
 def test_params_need_a_stopping_rule():
     with pytest.raises(ValueError):
         GAParams(seed=0)
+
+
+# --- Step 4c: memetic GA with inter-route descent (ls_mode="full") ---------------
+
+def test_ls_mode_validation():
+    with pytest.raises(ValueError):
+        GAParams(seed=0, max_generations=1, ls_mode="or_opt")
+    with pytest.raises(ValueError):
+        GAParams(seed=0, max_generations=1, ls_neighbours=0)
+    assert GAParams(seed=0, max_generations=1).ls_mode == "2opt"      # default = old memetic behaviour
+
+
+def test_plain_ga_reports_no_local_search(a32):
+    res = genetic_algorithm(a32, GAParams(seed=0, max_generations=5))
+    assert res.local_searches == 0 and res.ls_time == 0.0
+
+
+def test_memetic_full_deterministic(a32):
+    p = dict(seed=4, max_generations=5, memetic=True, ls_mode="full", local_search_prob=0.5)
+    a, b = genetic_algorithm(a32, GAParams(**p)), genetic_algorithm(a32, GAParams(**p))
+    assert a.best_cost == b.best_cost and a.solution.routes == b.solution.routes
+    assert a.decodes == b.decodes and a.local_searches == b.local_searches > 0
+
+
+def test_memetic_full_beats_cw_on_a60():
+    """Regression test for the Step 6b finding: the plain GA never got below the
+    Clarke–Wright cost (1408) on A-n60-k9. 25 generations take about 5 s."""
+    inst = load_instance(ROOT / "data/cvrplib/A-n60-k9.vrp")
+    cw = clarke_wright(inst, warn=False).cost
+    res = genetic_algorithm(inst, GAParams(seed=0, max_generations=25, memetic=True, ls_mode="full",
+                                           local_search_prob=0.5))
+    assert check(inst, res.solution, claimed_cost=res.best_cost).feasible
+    assert res.best_cost <= 0.99 * cw
+    assert res.local_searches > 0 and 0 < res.ls_time <= res.elapsed

@@ -130,6 +130,15 @@ python -m cvrp.split --benchmark
 python -m cvrp.ga data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
 ```
 
+**Memetic GA with inter-route local search (Step 4c).** `--ls-mode full` applies a granular first-improvement
+descent (relocate, swap, 2-opt*, 2-opt under hard capacity) to a share `--ls-prob` of the offspring. `--ls-neighbours`
+sets the size of the neighbour lists. In the experiment runner this variant is the algorithm `ga_ls`. Details are in
+`docs/step4c_notes.md`.
+
+```powershell
+python -m cvrp.ga data/cvrplib/A-n60-k9.vrp --seed 0 --time 10 --memetic --ls-mode full --ls-prob 0.5
+```
+
 **Tabu Search.** Granular, with soft capacity and adaptive λ. The other options are `--iters`, `--tenure-min`,
 `--tenure-max`, `--cand` and `--moves relocate,swap,two_opt_star,two_opt`:
 
@@ -230,7 +239,7 @@ cvrp-project/
     savings.py         Clarke–Wright savings
     split.py           Split DP (incl. max-K-routes version)
     ga.py              Genetic Algorithm
-    local_search.py    2-opt (memetic GA) + O(1) move deltas (relocate, swap, 2-opt*)
+    local_search.py    2-opt, O(1) move deltas, granular lists, descent (memetic GA)
     tabu.py            Tabu Search
   experiments/         experiment scripts (config.py, run_experiments.py, tuning.py, tuning_grid.py)
   results/

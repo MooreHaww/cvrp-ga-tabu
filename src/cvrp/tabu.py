@@ -33,15 +33,14 @@ from dataclasses import dataclass, field
 
 from cvrp.checker import check
 from cvrp.instance import Instance
-from cvrp.local_search import (apply_relocate, apply_swap, apply_two_opt_intra, apply_two_opt_star,
-                               full_distance, relocate_added_arcs, relocate_delta, route_arcs,
-                               solution_overload, swap_added_arcs, swap_delta, two_opt_intra_added_arcs,
+from cvrp.local_search import (MOVE_TYPES, apply_relocate, apply_swap, apply_two_opt_intra, apply_two_opt_star,
+                               customer_moves, full_distance, neighbours, relocate_added_arcs, relocate_delta,
+                               route_arcs, solution_overload, swap_added_arcs, swap_delta, two_opt_intra_added_arcs,
                                two_opt_intra_delta, two_opt_star_added_arcs, two_opt_star_delta)
 from cvrp.parser import load_instance
 from cvrp.savings import clarke_wright, gap_percent
 from cvrp.solution import Solution
 
-MOVE_TYPES = ("relocate", "swap", "two_opt_star", "two_opt")
 EPS = 1e-9
 
 
@@ -158,16 +157,6 @@ class LambdaController:
         return self.lam != old
 
 
-def neighbours(D, n: int, k: int | None) -> list[list[int]]:
-    """Granular candidate list: the k nearest customers of every customer (k=None: all).
-    Index 0 (depot) gets an empty list. Time: O(n^2 log n), done once."""
-    result: list[list[int]] = [[]]
-    for c in range(1, n + 1):
-        others = sorted((v for v in range(1, n + 1) if v != c), key=lambda v: (D[c][v], v))
-        result.append(others if k is None else others[:k])
-    return result
-
-
 def initial_routes(inst: Instance) -> tuple[list[list[int]], float]:
     """Clarke–Wright routes, adjusted to exactly K slots; also returns the CW distance.
 
@@ -270,32 +259,13 @@ class _State:
 
     def candidates(self, neigh: list[list[int]], moves: set[str]):
         """Granular candidate moves (generator). Each move makes c adjacent to one of its
-        neighbours nb (or, for the empty-route options, to the depot). Time: O(n * kappa) moves."""
+        neighbours nb (or, for the empty-route options, to the depot). The neighbour moves
+        come from local_search.customer_moves (shared with descent). Time: O(n * kappa) moves."""
         routes, where = self.routes, self.where
         empty = next((r for r, route in enumerate(routes) if not route), None)
         for c in range(1, self.n + 1):
             r, i = where[c]
-            for nb in neigh[c]:
-                rn, jn = where[nb]
-                if "relocate" in moves:
-                    if rn != r:
-                        yield "relocate", (r, i, rn, jn)          # c just before nb
-                        yield "relocate", (r, i, rn, jn + 1)      # c just after nb
-                    else:
-                        jn2 = jn if jn < i else jn - 1           # index of nb once c is removed
-                        if jn2 != i:
-                            yield "relocate", (r, i, r, jn2)
-                        if jn2 + 1 != i:
-                            yield "relocate", (r, i, r, jn2 + 1)
-                if "swap" in moves:
-                    yield "swap", (r, i, rn, jn)
-                if rn != r and "two_opt_star" in moves:
-                    yield "two_opt_star", (r, i + 1, rn, jn)    # new arc (c, nb)
-                if rn == r and "two_opt" in moves:
-                    if i + 1 < jn:
-                        yield "two_opt", (r, i + 1, jn)           # ... c, nb ...
-                    elif jn + 1 < i:
-                        yield "two_opt", (r, jn + 1, i)           # ... nb, c ...
+            yield from customer_moves(c, routes, where, neigh[c], moves)
             if empty is not None:
                 if "relocate" in moves and len(routes[r]) > 1:
                     yield "relocate", (r, i, empty, 0)            # open a new route with c

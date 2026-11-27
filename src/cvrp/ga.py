@@ -19,7 +19,14 @@ A-n45-k6 (81.8% gap); see docs/step4_notes.md.
 One generation costs O(P * n * L) (O(P * K * n * L) when the K-limited
 fallback runs), P = population size, L = max customers per route.
 
-CLI: python -m cvrp.ga data/cvrplib/A-n32-k5.vrp --seed 0 --time 10 [--memetic]
+Memetic variants (memetic=True, Lamarckian: improved routes are written back as
+the new giant tour): ls_mode="2opt" applies intra-route 2-opt (Step 4);
+ls_mode="full" applies local_search.descent, a granular first-improvement
+descent with relocate / swap / 2-opt* / 2-opt moves under hard capacity
+(Step 4c). memetic=False is the plain GA, kept unchanged as the baseline.
+
+CLI: python -m cvrp.ga data/cvrplib/A-n32-k5.vrp --seed 0 --time 10
+         [--memetic [--ls-mode full] [--ls-prob P] [--ls-neighbours k]]
 """
 
 from __future__ import annotations
@@ -31,7 +38,7 @@ from dataclasses import dataclass, field
 
 from cvrp.checker import check
 from cvrp.instance import Instance
-from cvrp.local_search import improve_solution_2opt
+from cvrp.local_search import descent, improve_solution_2opt, neighbours
 from cvrp.parser import load_instance
 from cvrp.savings import clarke_wright, gap_percent
 from cvrp.solution import Solution
@@ -56,9 +63,12 @@ class GAParams:
     seed_fraction: float = 0.1        # share of the initial population built from Clarke–Wright routes
     time_limit: float | None = None   # stop after this many seconds (checked between generations)
     max_generations: int | None = None  # stop after this many generations
-    memetic: bool = False             # apply 2-opt inside routes to some offspring
-    local_search_prob: float = 0.1    # probability that an offspring gets the 2-opt step (if memetic)
+    memetic: bool = False             # apply local search to some offspring (Lamarckian)
+    local_search_prob: float = 0.1    # probability that an offspring gets the local search (if memetic)
     penalty: float | None = None      # lambda per extra route; None -> default_penalty(inst)
+    ls_mode: str = "2opt"             # "2opt": intra-route 2-opt only (Step 4);
+                                      # "full": granular descent with inter-route moves (Step 4c)
+    ls_neighbours: int = 10           # kappa of the granular lists used by ls_mode="full"
 
     def __post_init__(self) -> None:
         """Validate the parameters. Time: O(1)."""
@@ -73,6 +83,10 @@ class GAParams:
         for name in ("crossover_rate", "mutation_rate", "seed_fraction", "local_search_prob"):
             if not 0.0 <= getattr(self, name) <= 1.0:
                 raise ValueError(f"{name} must be in [0, 1]")
+        if self.ls_mode not in ("2opt", "full"):
+            raise ValueError("ls_mode must be '2opt' or 'full'")
+        if self.ls_neighbours < 1:
+            raise ValueError("ls_neighbours must be >= 1")
 
 
 @dataclass
@@ -111,6 +125,8 @@ class GAResult:
     immigrants: int = 0                   # random individuals inserted by the diversity rule
     immigrant_duplicates: int = 0         # immigrants accepted although duplicate (tiny n only)
     final_population: list[tuple[int, float]] = field(default_factory=list)  # sorted (excess, cost)
+    local_searches: int = 0               # offspring that got the local search (memetic only)
+    ls_time: float = 0.0                  # total seconds spent inside the local search
 
 
 # --------------------------------------------------------------------------- decoder
@@ -242,6 +258,10 @@ class _GARun:
         self.best: Individual | None = None                 # best feasible ever seen
         self.best_infeasible: tuple[int, float] | None = None
         self.progress: list[tuple[float, float]] = []
+        self.ls_count, self.ls_time = 0, 0.0
+        if params.memetic and params.ls_mode == "full":      # built once per run: O(n^2 log n)
+            self.D = inst.dist.tolist()
+            self.neigh = neighbours(self.D, inst.n, params.ls_neighbours)
 
     def elapsed(self) -> float:
         return time.perf_counter() - self.start
@@ -281,7 +301,8 @@ class _GARun:
         return mutate(tour, self.rng)
 
     def offspring(self, pop: list[Individual]) -> Individual:
-        """Selection, OX, mutation, decoding (+ optional Lamarckian 2-opt). Time: O(n * L) typical."""
+        """Selection, OX, mutation, decoding (+ optional Lamarckian local search). Time: O(n * L) typical,
+        plus the local search: O(sum m_r^2) per pass for "2opt", O(n * kappa) per pass for "full"."""
         p1 = tournament(pop, self.p.tournament_size, self.rng)
         p2 = tournament(pop, self.p.tournament_size, self.rng)
         if self.rng.random() < self.p.crossover_rate:
@@ -292,8 +313,16 @@ class _GARun:
             child = mutate(child, self.rng)
         ind = self.evaluate(child)
         if self.p.memetic and self.rng.random() < self.p.local_search_prob:
-            improved = improve_solution_2opt(self.inst, ind.routes)
-            ind = self.evaluate([v for r in improved for v in r])   # write back and re-decode
+            t0 = time.perf_counter()
+            if self.p.ls_mode == "full":      # deterministic: draws no random numbers
+                improved = descent(self.inst, ind.routes, self.neigh, D=self.D)
+            else:
+                improved = improve_solution_2opt(self.inst, ind.routes)
+            self.ls_count += 1
+            self.ls_time += time.perf_counter() - t0
+            # Lamarckian write-back: concatenate the improved routes into a new giant tour and
+            # re-decode it (Split is optimal for that order, so the cost cannot get worse).
+            ind = self.evaluate([v for r in improved for v in r])
         return ind
 
     def add_unique(self, pop: list[Individual], reg: _Registry, make) -> None:
@@ -381,7 +410,8 @@ def genetic_algorithm(inst: Instance, params: GAParams) -> GAResult:
         elapsed=run.elapsed(), progress=run.progress, gen_times=gen_times,
         params=params, seed=params.seed, penalty_lambda=run.penalty, immigrants=run.immigrants,
         immigrant_duplicates=run.immigrant_duplicates,
-        final_population=sorted(ind.key for ind in pop))
+        final_population=sorted(ind.key for ind in pop),
+        local_searches=run.ls_count, ls_time=run.ls_time)
 
 
 def main() -> None:
@@ -394,7 +424,11 @@ def main() -> None:
     ap.add_argument("--pop", type=int, default=50)
     ap.add_argument("--pc", type=float, default=0.9, help="crossover rate")
     ap.add_argument("--pm", type=float, default=0.2, help="mutation rate")
-    ap.add_argument("--memetic", action="store_true", help="enable intra-route 2-opt on offspring")
+    ap.add_argument("--memetic", action="store_true", help="enable local search on offspring")
+    ap.add_argument("--ls-mode", choices=("2opt", "full"), default="2opt",
+                    help="2opt = intra-route only; full = granular descent with inter-route moves")
+    ap.add_argument("--ls-prob", type=float, default=0.1, help="probability of local search per offspring")
+    ap.add_argument("--ls-neighbours", type=int, default=10, help="granular list size for --ls-mode full")
     ap.add_argument("--penalty", type=float, default=None, help="lambda per extra route (default 2*mean d(0,i))")
     args = ap.parse_args()
     time_limit = args.time if args.time is not None or args.gens is not None else 10.0
@@ -402,12 +436,16 @@ def main() -> None:
     inst = load_instance(args.path)
     params = GAParams(seed=args.seed, pop_size=args.pop, crossover_rate=args.pc, mutation_rate=args.pm,
                       time_limit=time_limit, max_generations=args.gens, memetic=args.memetic,
-                      penalty=args.penalty)
+                      penalty=args.penalty, ls_mode=args.ls_mode, local_search_prob=args.ls_prob,
+                      ls_neighbours=args.ls_neighbours)
     res = genetic_algorithm(inst, params)
 
     print(f"instance    : {inst.name} (n={inst.n}, Q={inst.Q}, K={inst.K})")
     print(f"generations : {res.generations}   decodes: {res.decodes}   immigrants: {res.immigrants}   "
           f"lambda: {res.penalty_lambda:.2f}")
+    if params.memetic:
+        print(f"local search: mode {params.ls_mode}, {res.local_searches} calls, {res.ls_time:.2f} s "
+              f"({100 * res.ls_time / res.elapsed:.0f}% of the runtime)")
     print(f"runtime     : {res.elapsed:.2f} s")
     if res.solution is None:
         print(f"WARNING: no feasible solution (<= K routes) found; best infeasible (excess, cost) = "

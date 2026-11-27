@@ -100,9 +100,10 @@ def _resolve_penalty_scale(inst: Instance, overrides: dict) -> tuple[dict, float
     return overrides, float(scale)
 
 
-def _run_ga(inst: Instance, seed: int, budget: float, overrides: dict, memetic: bool) -> Outcome:
+def _run_ga(inst: Instance, seed: int, budget: float, overrides: dict, base: dict) -> Outcome:
+    """GA with GAParams defaults, then the variant's `base` settings, then the overrides."""
     overrides, scale = _resolve_penalty_scale(inst, _checked_overrides(overrides))
-    params = GAParams(**{"memetic": memetic, **overrides}, seed=seed, time_limit=budget)
+    params = GAParams(**{**base, **overrides}, seed=seed, time_limit=budget)
     res = genetic_algorithm(inst, params)
     p = asdict(params)
     if scale is not None:
@@ -113,12 +114,19 @@ def _run_ga(inst: Instance, seed: int, budget: float, overrides: dict, memetic: 
 
 def run_ga(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:
     """GA with GAParams defaults (+ overrides). Time: the budget."""
-    return _run_ga(inst, seed, budget, overrides, memetic=False)
+    return _run_ga(inst, seed, budget, overrides, base={"memetic": False})
 
 
 def run_ga_memetic(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:
     """Memetic GA (intra-route 2-opt on offspring). Time: the budget."""
-    return _run_ga(inst, seed, budget, overrides, memetic=True)
+    return _run_ga(inst, seed, budget, overrides, base={"memetic": True})
+
+
+def run_ga_ls(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:
+    """Memetic GA with the granular inter-route descent (Step 4c); local_search_prob 0.5
+    until it is tuned. Time: the budget."""
+    return _run_ga(inst, seed, budget, overrides,
+                   base={"memetic": True, "ls_mode": "full", "local_search_prob": 0.5})
 
 
 def run_tabu(inst: Instance, seed: int, budget: float, overrides: dict) -> Outcome:
@@ -134,5 +142,5 @@ def run_tabu(inst: Instance, seed: int, budget: float, overrides: dict) -> Outco
                    res.progress, res.elapsed, p)
 
 
-ALGORITHMS = {"ga": run_ga, "ga_memetic": run_ga_memetic, "tabu": run_tabu}
+ALGORITHMS = {"ga": run_ga, "ga_memetic": run_ga_memetic, "ga_ls": run_ga_ls, "tabu": run_tabu}
 DEFAULT_ALGOS = ("ga", "tabu")
