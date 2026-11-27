@@ -1,0 +1,421 @@
+component,n,rep,seconds,units_of_work,units,Q,K,L_eff,extra_json,git_commit,hardware
+cw,50,0,0.0006825999989814591,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,1,0.0006845000007160706,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,2,0.0007097999987308867,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,3,0.0006720999990648124,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,4,0.000715600001058192,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,5,0.0006749000003765104,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,50,6,0.0006601000004593516,1225,savings pairs examined,100,9,,"{""routes"": 9}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,0,0.0027632999990601093,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,1,0.0026467000006960006,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,2,0.00268569999934698,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,3,0.0026985999993485166,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,4,0.0027142000017192913,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,5,0.0026775999995152233,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,100,6,0.002971899999465677,4950,savings pairs examined,100,17,,"{""routes"": 16}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,0,0.017371299998558243,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,1,0.013853600001311861,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,2,0.016889200000150595,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,3,0.01699160000134725,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,4,0.015696899999966263,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,5,0.017667699999947217,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,200,6,0.017689800000880496,19900,savings pairs examined,100,32,,"{""routes"": 32}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,0,0.10060109999903943,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,1,0.08866190000117058,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,2,0.09551960000135296,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,3,0.09570480000002135,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,4,0.09644110000044748,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,5,0.09487110000009125,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,400,6,0.08995770000001357,79800,savings pairs examined,100,63,,"{""routes"": 64}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,0,0.3678675999999541,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,1,0.3596045000012964,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,2,0.4357588000002579,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,3,0.4126976999996259,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,4,0.4898228999991261,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,5,0.4872945000006439,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+cw,800,6,0.4975620999994135,319600,savings pairs examined,100,122,,"{""routes"": 124}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,0,5.8379999973112715e-05,288.85,arcs examined per call,100,9,5.777,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,0,0.000268320000031963,2593.8,arcs examined per call,100,9,5.777,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,1,5.2580000010493676e-05,287.05,arcs examined per call,100,9,5.7410000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,1,0.0002662599999894155,2577.6,arcs examined per call,100,9,5.7410000000000005,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,2,5.2365000010468064e-05,288.1,arcs examined per call,100,9,5.7620000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,2,0.0002640599999722326,2575.8,arcs examined per call,100,9,5.7620000000000005,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,3,5.172000001039123e-05,288.55,arcs examined per call,100,9,5.771,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,3,0.0002567000003182329,2602.8,arcs examined per call,100,9,5.771,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,4,5.1710000025195765e-05,289.45,arcs examined per call,100,9,5.789,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,4,0.00024462000001221893,2629.8,arcs examined per call,100,9,5.789,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,5,5.187999995541759e-05,288.1,arcs examined per call,100,9,5.7620000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,5,0.0002423800000542542,2597.4,arcs examined per call,100,9,5.7620000000000005,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,50,6,5.196000001888024e-05,288.0,arcs examined per call,100,9,5.76,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,50,6,0.0002423999998427462,2601.0,arcs examined per call,100,9,5.76,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,0,0.00011559499998838873,610.1,arcs examined per call,100,17,6.101,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,0,0.0009373799999593757,10349.6,arcs examined per call,100,17,6.101,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,1,0.00011095499994553392,610.15,arcs examined per call,100,17,6.1015,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,1,0.0009163200000330107,10323.25,arcs examined per call,100,17,6.1015,"{""feasible_share"": 0.8, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,2,0.00010807000007844181,611.75,arcs examined per call,100,17,6.1175,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,2,0.0009059800002432894,10460.666666666666,arcs examined per call,100,17,6.1175,"{""feasible_share"": 0.6, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,3,0.00010958500006381655,609.45,arcs examined per call,100,17,6.0945,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,3,0.0009043800000654301,10336.0,arcs examined per call,100,17,6.0945,"{""feasible_share"": 0.8, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,4,0.00011088999999628868,613.55,arcs examined per call,100,17,6.1354999999999995,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,4,0.0009066599999641767,10332.6,arcs examined per call,100,17,6.1354999999999995,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,5,0.00010620000002745656,615.9,arcs examined per call,100,17,6.159,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,5,0.0008981400002085138,10565.5,arcs examined per call,100,17,6.159,"{""feasible_share"": 0.4, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,100,6,0.00010993500000040512,610.15,arcs examined per call,100,17,6.1015,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,100,6,0.001065039999957662,10324.666666666666,arcs examined per call,100,17,6.1015,"{""feasible_share"": 0.6, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,0,0.00027307000000291736,1218.2,arcs examined per call,100,32,6.091,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,0,0.0031200400000670923,nan,arcs examined per call,100,32,6.091,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,1,0.00021453999997902428,1218.05,arcs examined per call,100,32,6.09025,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,1,0.003266520000033779,nan,arcs examined per call,100,32,6.09025,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,2,0.0002376450000156183,1216.5,arcs examined per call,100,32,6.0825,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,2,0.0032010800001444294,nan,arcs examined per call,100,32,6.0825,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,3,0.00021779999997306732,1220.65,arcs examined per call,100,32,6.10325,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,3,0.003311039999971399,nan,arcs examined per call,100,32,6.10325,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,4,0.0002156450000256882,1222.9,arcs examined per call,100,32,6.1145000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,4,0.00325273999987985,nan,arcs examined per call,100,32,6.1145000000000005,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,5,0.00022883999999976368,1221.55,arcs examined per call,100,32,6.107749999999999,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,5,0.00314195999999356,nan,arcs examined per call,100,32,6.107749999999999,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,200,6,0.0002534999999625143,1218.4,arcs examined per call,100,32,6.0920000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,200,6,0.0031906399999570567,nan,arcs examined per call,100,32,6.0920000000000005,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,0,0.0005310649999955786,2464.35,arcs examined per call,100,63,6.160875,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,0,0.0134552800001984,nan,arcs examined per call,100,63,6.160875,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,1,0.0004943650000313937,2469.9,arcs examined per call,100,63,6.17475,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,1,0.013337279999905149,nan,arcs examined per call,100,63,6.17475,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,2,0.0005024349999985134,2465.9,arcs examined per call,100,63,6.164750000000001,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,2,0.013904060000277241,nan,arcs examined per call,100,63,6.164750000000001,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,3,0.0004883399999926041,2459.75,arcs examined per call,100,63,6.149375,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,3,0.01370974000019487,nan,arcs examined per call,100,63,6.149375,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,4,0.0004981500000212691,2468.35,arcs examined per call,100,63,6.170875,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,4,0.013818700000047101,nan,arcs examined per call,100,63,6.170875,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,5,0.0005044999999881839,2473.75,arcs examined per call,100,63,6.184375,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,5,0.013866140000027371,nan,arcs examined per call,100,63,6.184375,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,400,6,0.0005086499999379157,2466.25,arcs examined per call,100,63,6.165625,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,400,6,0.013735960000121849,nan,arcs examined per call,100,63,6.165625,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,0,0.0010678999999981897,5053.2,arcs examined per call,100,122,6.3165,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,0,0.05869710000006308,nan,arcs examined per call,100,122,6.3165,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,1,0.0011292350000076112,5062.6,arcs examined per call,100,122,6.328250000000001,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,1,0.05822919999991427,nan,arcs examined per call,100,122,6.328250000000001,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,2,0.0011171549999744457,5059.3,arcs examined per call,100,122,6.324125,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,2,0.05916852000009385,nan,arcs examined per call,100,122,6.324125,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,3,0.00111176999998861,5057.05,arcs examined per call,100,122,6.3213125,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,3,0.05875049999995099,nan,arcs examined per call,100,122,6.3213125,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,4,0.0011601000000155182,5046.75,arcs examined per call,100,122,6.3084375,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,4,0.059286620000057154,nan,arcs examined per call,100,122,6.3084375,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,5,0.0011493699999846284,5054.2,arcs examined per call,100,122,6.31775,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,5,0.059552739999708136,nan,arcs examined per call,100,122,6.31775,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited,800,6,0.0011268899999777205,5062.4,arcs examined per call,100,122,6.327999999999999,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k,800,6,0.05979154000015115,nan,arcs examined per call,100,122,6.327999999999999,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,0,0.0019606899999416783,97,decodes (run total),100,9,,"{""arcs_per_decode"": 2536.298969072165, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,1,0.0020286500002839603,95,decodes (run total),100,9,,"{""arcs_per_decode"": 2441.4842105263156, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,2,0.0021236000004137166,107,decodes (run total),100,9,,"{""arcs_per_decode"": 2216.5794392523367, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,3,0.002068160000089847,92,decodes (run total),100,9,,"{""arcs_per_decode"": 2767.858695652174, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,4,0.002073760000166658,101,decodes (run total),100,9,,"{""arcs_per_decode"": 2537.841584158416, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,5,0.0021346399998947163,102,decodes (run total),100,9,,"{""arcs_per_decode"": 2453.9411764705883, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,50,6,0.002078499999879568,96,decodes (run total),100,9,,"{""arcs_per_decode"": 2722.3854166666665, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,0,0.007257080000090355,101,decodes (run total),100,17,,"{""arcs_per_decode"": 8846.70297029703, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,1,0.006282219999775407,95,decodes (run total),100,17,,"{""arcs_per_decode"": 8475.38947368421, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,2,0.006421090000367257,101,decodes (run total),100,17,,"{""arcs_per_decode"": 8013.247524752475, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,3,0.008194939999884809,105,decodes (run total),100,17,,"{""arcs_per_decode"": 9301.066666666668, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,4,0.006749329999729525,100,decodes (run total),100,17,,"{""arcs_per_decode"": 8667.54, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,5,0.007651260000238835,105,decodes (run total),100,17,,"{""arcs_per_decode"": 9774.809523809523, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,100,6,0.007474679999722867,104,decodes (run total),100,17,,"{""arcs_per_decode"": 8772.423076923076, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,0,0.02589693999980227,103,decodes (run total),100,32,,"{""arcs_per_decode"": 1218.4757281553398, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,1,0.02387258999988262,94,decodes (run total),100,32,,"{""arcs_per_decode"": 1224.6382978723404, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,2,0.027979179999965707,107,decodes (run total),100,32,,"{""arcs_per_decode"": 1225.8878504672898, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,3,0.02629464999954507,105,decodes (run total),100,32,,"{""arcs_per_decode"": 1966.3238095238096, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,4,0.026179509999747098,102,decodes (run total),100,32,,"{""arcs_per_decode"": 1218.1568627450981, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,5,0.02448993000016344,97,decodes (run total),100,32,,"{""arcs_per_decode"": 1223.3505154639174, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,200,6,0.02362626999947679,98,decodes (run total),100,32,,"{""arcs_per_decode"": 1223.2244897959183, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,0,0.12851194000049873,112,decodes (run total),100,63,,"{""arcs_per_decode"": 2467.4553571428573, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,1,0.099340879999545,94,decodes (run total),100,63,,"{""arcs_per_decode"": 2474.7659574468084, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,2,0.10931491999999707,99,decodes (run total),100,63,,"{""arcs_per_decode"": 2472.2929292929293, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,3,0.12299832000007882,111,decodes (run total),100,63,,"{""arcs_per_decode"": 2465.7297297297296, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,4,0.11807780999970419,105,decodes (run total),100,63,,"{""arcs_per_decode"": 2477.6285714285714, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,5,0.12067045999992843,109,decodes (run total),100,63,,"{""arcs_per_decode"": 2473.412844036697, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,400,6,0.12174505000002682,107,decodes (run total),100,63,,"{""arcs_per_decode"": 2481.5233644859813, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,0,0.43618447999997445,97,decodes (run total),100,122,,"{""arcs_per_decode"": 5074.082474226804, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,1,0.4790595700002086,105,decodes (run total),100,122,,"{""arcs_per_decode"": 5085.619047619048, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,2,0.4736333699998795,103,decodes (run total),100,122,,"{""arcs_per_decode"": 5092.514563106796, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,3,0.41948111000019705,95,decodes (run total),100,122,,"{""arcs_per_decode"": 5083.884210526316, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,4,0.4198137700001098,95,decodes (run total),100,122,,"{""arcs_per_decode"": 5079.884210526316, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,5,0.455175380000037,101,decodes (run total),100,122,,"{""arcs_per_decode"": 5087.089108910891, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+ga_generation,800,6,0.49365912999983264,107,decodes (run total),100,122,,"{""arcs_per_decode"": 5089.467289719626, ""generations"": 10}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,0,0.03130923999960942,59,decodes (run total),100,9,,"{""arcs_per_decode"": 1571.1864406779662, ""generations"": 5, ""local_searches"": 18, ""ls_time"": 0.14778540000042995}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,1,0.024741859999630834,50,decodes (run total),100,9,,"{""arcs_per_decode"": 1687.42, ""generations"": 5, ""local_searches"": 12, ""ls_time"": 0.11543279999932565}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,2,0.032869920000302956,50,decodes (run total),100,9,,"{""arcs_per_decode"": 1861.7, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 0.1557749999956286}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,3,0.034166600000389735,63,decodes (run total),100,9,,"{""arcs_per_decode"": 1579.2539682539682, ""generations"": 5, ""local_searches"": 19, ""ls_time"": 0.16156860000410234}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,4,0.027995939999527764,59,decodes (run total),100,9,,"{""arcs_per_decode"": 1545.4915254237287, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 0.1313622999987274}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,5,0.028290719999858993,55,decodes (run total),100,9,,"{""arcs_per_decode"": 1757.9636363636364, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 0.13237100000333157}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,50,6,0.03147784000066167,56,decodes (run total),100,9,,"{""arcs_per_decode"": 1499.5, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 0.14947890000257757}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,0,0.07946214000003238,54,decodes (run total),100,17,,"{""arcs_per_decode"": 5681.314814814815, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 0.3684176999995543}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,1,0.08191566000023158,63,decodes (run total),100,17,,"{""arcs_per_decode"": 5432.079365079365, ""generations"": 5, ""local_searches"": 18, ""ls_time"": 0.37914859999727923}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,2,0.07195052000024589,53,decodes (run total),100,17,,"{""arcs_per_decode"": 4781.905660377359, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 0.3344723999998678}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,3,0.0802389199998288,60,decodes (run total),100,17,,"{""arcs_per_decode"": 4969.4, ""generations"": 5, ""local_searches"": 19, ""ls_time"": 0.3721278000029997}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,4,0.08023143999962486,52,decodes (run total),100,17,,"{""arcs_per_decode"": 5469.115384615385, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 0.37274540000180423}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,5,0.08082309999917925,51,decodes (run total),100,17,,"{""arcs_per_decode"": 5988.450980392156, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 0.37541849999979604}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,100,6,0.05261022000013327,50,decodes (run total),100,17,,"{""arcs_per_decode"": 5452.18, ""generations"": 5, ""local_searches"": 12, ""ls_time"": 0.2372196000033}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,0,0.27062040000018894,56,decodes (run total),100,32,,"{""arcs_per_decode"": 1936.1785714285713, ""generations"": 5, ""local_searches"": 17, ""ls_time"": 1.1996883999927377}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,1,0.21358172000000195,51,decodes (run total),100,32,,"{""arcs_per_decode"": 2012.4705882352941, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 0.9319358999982796}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,2,0.1820092599999043,51,decodes (run total),100,32,,"{""arcs_per_decode"": 1229.5882352941176, ""generations"": 5, ""local_searches"": 13, ""ls_time"": 0.7858634000021993}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,3,0.20669121999999335,55,decodes (run total),100,32,,"{""arcs_per_decode"": 1950.581818181818, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 0.8949200000006385}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,4,0.2343533599992952,52,decodes (run total),100,32,,"{""arcs_per_decode"": 1218.8653846153845, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 1.0520596999995178}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,5,0.21567437999983669,56,decodes (run total),100,32,,"{""arcs_per_decode"": 1228.6785714285713, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 0.9435855000010633}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,200,6,0.22870671999990008,53,decodes (run total),100,32,,"{""arcs_per_decode"": 1228.6037735849056, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 0.9917166000013822}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,0,0.6926259800005937,49,decodes (run total),100,63,,"{""arcs_per_decode"": 2480.673469387755, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 2.887606099995537}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,1,0.8198679599994648,55,decodes (run total),100,63,,"{""arcs_per_decode"": 2495.090909090909, ""generations"": 5, ""local_searches"": 18, ""ls_time"": 3.4338172000025224}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,2,0.6425355599996692,53,decodes (run total),100,63,,"{""arcs_per_decode"": 2481.6792452830186, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 2.574736099999427}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,3,0.5518874600002164,48,decodes (run total),100,63,,"{""arcs_per_decode"": 2480.9583333333335, ""generations"": 5, ""local_searches"": 11, ""ls_time"": 2.199892499993439}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,4,0.6007757399998809,55,decodes (run total),100,63,,"{""arcs_per_decode"": 2485.0545454545454, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 2.3401556000026176}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,5,0.6416749199997867,52,decodes (run total),100,63,,"{""arcs_per_decode"": 2481.826923076923, ""generations"": 5, ""local_searches"": 13, ""ls_time"": 2.5860570999975607}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,400,6,0.6737238799996703,58,decodes (run total),100,63,,"{""arcs_per_decode"": 2478.5172413793102, ""generations"": 5, ""local_searches"": 14, ""ls_time"": 2.663594900001044}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,0,1.8602783000002092,60,decodes (run total),100,122,,"{""arcs_per_decode"": 5094.766666666666, ""generations"": 5, ""local_searches"": 16, ""ls_time"": 6.222302000003765}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,1,1.7901994599997124,51,decodes (run total),100,122,,"{""arcs_per_decode"": 5088.764705882353, ""generations"": 5, ""local_searches"": 13, ""ls_time"": 6.436971299994184}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,2,1.5942933199999971,49,decodes (run total),100,122,,"{""arcs_per_decode"": 5096.632653061224, ""generations"": 5, ""local_searches"": 12, ""ls_time"": 5.639628700002504}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,3,1.8871150200004194,52,decodes (run total),100,122,,"{""arcs_per_decode"": 5090.5192307692305, ""generations"": 5, ""local_searches"": 15, ""ls_time"": 6.902723999997761}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,4,1.1789485400004196,46,decodes (run total),100,122,,"{""arcs_per_decode"": 5082.260869565217, ""generations"": 5, ""local_searches"": 10, ""ls_time"": 3.7160097000014503}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,5,2.209919820000141,59,decodes (run total),100,122,,"{""arcs_per_decode"": 5083.067796610169, ""generations"": 5, ""local_searches"": 19, ""ls_time"": 8.085335800000394}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+gals_generation,800,6,2.291403459999492,54,decodes (run total),100,122,,"{""arcs_per_decode"": 5087.685185185185, ""generations"": 5, ""local_searches"": 17, ""ls_time"": 8.809369999997216}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,0,0.002719489999981306,3939.38,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0010477000014361693}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,1,0.0026834339999913938,3942.98,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0010595999992801808}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,2,0.0027255359999617213,3939.22,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.001118500000302447}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,3,0.0027007159999993748,3924.28,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0011386999995011138}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,4,0.002669181999990542,3936.9,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0010661000014806632}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,5,0.0026918320000186213,3954.84,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0010516000002098735}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,50,6,0.0027304619999995337,3978.0,moves evaluated per iteration,100,9,,"{""iterations"": 50, ""setup_s"": 0.0010378999995737104}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,0,0.00539781800001947,7849.04,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.004896200000075623}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,1,0.005381364000022586,7794.36,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.004949799998939852}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,2,0.005432048000002397,7805.6,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.005380799999329611}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,3,0.005389256000016758,7827.72,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.005290099999911035}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,4,0.005502697999982047,7806.76,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.0046314999999594875}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,5,0.005393072000006213,7796.8,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.004711600000518956}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,100,6,0.005409799999943061,7854.68,moves evaluated per iteration,100,17,,"{""iterations"": 50, ""setup_s"": 0.004741100001410814}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,0,0.011170511999989686,16019.52,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.02182840000023134}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,1,0.01164115600000514,15964.18,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.020834799999647657}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,2,0.011569765999956872,15744.56,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.024450500000966713}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,3,0.011732857999995759,15943.36,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.022131499999886728}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,4,0.011844247999979416,16028.86,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.023063700000420795}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,5,0.011139206000007108,16020.84,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.019852699999319157}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,200,6,0.011064751999983856,15750.42,moves evaluated per iteration,100,32,,"{""iterations"": 50, ""setup_s"": 0.01957140000013169}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,0,0.026068196000014723,33579.64,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.13220319999891217}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,1,0.028533889999998792,33579.48,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.09911040000042703}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,2,0.0268315199999779,33579.52,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.12494940000033239}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,3,0.027236789999951726,33579.4,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.09884490000149526}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,4,0.02737587399999029,33579.16,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.1257764000001771}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,5,0.02695519000000786,33723.6,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.09442769999986922}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,400,6,0.02822346600001765,33579.72,moves evaluated per iteration,100,63,,"{""iterations"": 50, ""setup_s"": 0.12688469999920926}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,0,0.06462794599996415,72058.66,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.4848186000017449}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,1,0.06390827000002901,72063.86,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.5431306999998924}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,2,0.062393881999960286,72063.62,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.637298000001465}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,3,0.061738145999988774,72063.62,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.6193277000002126}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,4,0.06155406399997446,72058.66,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.5735273999998753}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,5,0.06340582200002245,72058.66,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.5165201999989222}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_iteration,800,6,0.06219563800001197,72058.66,moves evaluated per iteration,100,122,,"{""iterations"": 50, ""setup_s"": 0.5797796000006201}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,0,5.111999998916872e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,0,5.316449999554607e-06,2000,moves,100,9,,"{""speedup"": 10.399941315886254}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,1,5.096500008221482e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,1,5.25649999963207e-06,2000,moves,100,9,,"{""speedup"": 10.313940922500697}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,2,5.243499999778578e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,2,5.267199999252625e-06,2000,moves,100,9,,"{""speedup"": 10.045198816582527}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,3,5.152499998075655e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,3,5.435600000055274e-06,2000,moves,100,9,,"{""speedup"": 10.549442022484913}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,4,5.177000002731802e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,4,5.4598500000793135e-06,2000,moves,100,9,,"{""speedup"": 10.546358889701096}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,5,5.118000008224044e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,5,5.222250000770146e-06,2000,moves,100,9,,"{""speedup"": 10.203692833877655}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,50,6,5.173999998078216e-07,2000,moves,100,9,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,50,6,5.48255000012432e-06,2000,moves,100,9,,"{""speedup"": 10.596347124392556}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,0,5.365500001062174e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,0,9.942550000232587e-06,2000,moves,100,17,,"{""speedup"": 18.53051905370296}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,1,5.346999996618251e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,1,9.892399999444023e-06,2000,moves,100,17,,"{""speedup"": 18.50084160407807}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,2,5.313999999998487e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,2,9.765849999894272e-06,2000,moves,100,17,,"{""speedup"": 18.377587504510824}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,3,5.361000003176741e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,3,9.897049999381124e-06,2000,moves,100,17,,"{""speedup"": 18.461201256326206}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,4,6.234000002223183e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,4,9.90419999925507e-06,2000,moves,100,17,,"{""speedup"": 15.887391715949649}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,5,5.430999999589403e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,5,1.0003549999964889e-05,2000,moves,100,17,,"{""speedup"": 18.419351870228653}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,100,6,5.338000000847387e-07,2000,moves,100,17,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,100,6,9.846050000305695e-06,2000,moves,100,17,,"{""speedup"": 18.445204193972785}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,0,5.399500005296432e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,0,1.8964100000630423e-05,2000,moves,100,32,,"{""speedup"": 35.12195570335831}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,1,5.710000004910398e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,1,1.9139949999953386e-05,2000,moves,100,32,,"{""speedup"": 33.52005251049686}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,2,5.697000005966402e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,2,1.8598149999888846e-05,2000,moves,100,32,,"{""speedup"": 32.6455151490455}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,3,5.359500000849948e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,3,1.9134650000523834e-05,2000,moves,100,32,,"{""speedup"": 35.70230431474825}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,4,5.63799999326875e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,4,1.9246299999394977e-05,2000,moves,100,32,,"{""speedup"": 34.13675066047052}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,5,5.596499995590421e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,5,1.8597049999698356e-05,2000,moves,100,32,,"{""speedup"": 33.22978649933225}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,200,6,6.069499995646766e-07,2000,moves,100,32,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,200,6,1.9422100000156205e-05,2000,moves,100,32,,"{""speedup"": 31.999505748556455}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,0,7.722499994997634e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,0,4.158304999964457e-05,2000,moves,100,63,,"{""speedup"": 53.846617062584166}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,1,7.057499997245031e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,1,4.115309999997407e-05,2000,moves,100,63,,"{""speedup"": 58.311158364914796}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,2,6.105000002207817e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,2,4.163919999973587e-05,2000,moves,100,63,,"{""speedup"": 68.20507777997942}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,3,6.601499999305816e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,3,4.0666100000635194e-05,2000,moves,100,63,,"{""speedup"": 61.60130274166699}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,4,1.0144999996555271e-06,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,4,4.13552999998501e-05,2000,moves,100,63,,"{""speedup"": 40.76421884070209}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,5,6.078999995224876e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,5,4.230284999994183e-05,2000,moves,100,63,,"{""speedup"": 69.58850145282315}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,400,6,7.90650000453752e-07,2000,moves,100,63,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,400,6,4.0965199999845934e-05,2000,moves,100,63,,"{""speedup"": 51.8120533438767}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,0,7.760500002405024e-07,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,0,8.136579999973037e-05,2000,moves,100,122,,"{""speedup"": 104.84607947234667}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,1,1.2114999999539578e-06,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,1,8.226585000011254e-05,2000,moves,100,122,,"{""speedup"": 67.90412711782007}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,2,8.897499992599478e-07,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,2,8.194594999986293e-05,2000,moves,100,122,,"{""speedup"": 92.0999719786701}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,3,1.2882999999419554e-06,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,3,8.246549999967101e-05,2000,moves,100,122,,"{""speedup"": 64.0110999017205}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,4,8.069499999692198e-07,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,4,8.27742000001308e-05,2000,moves,100,122,,"{""speedup"": 102.57661565560213}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,5,8.74899999871559e-07,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,5,8.189659999970899e-05,2000,moves,100,122,,"{""speedup"": 93.60681222051886}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_delta,800,6,1.010400000268419e-06,2000,moves,100,122,,{},885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+tabu_full_eval,800,6,8.25262999996994e-05,2000,moves,100,122,,"{""speedup"": 81.67686062725237}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,0,0.001960300000064308,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,0,0.000980150000032154,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,1,0.0019993999994767364,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,1,0.0009996999997383682,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,2,0.0019962000005762093,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,2,0.0009981000002881046,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,3,0.0019838999996864004,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,3,0.0009919499998432002,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,4,0.00200570000015432,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,4,0.00100285000007716,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,5,0.0020065000007889466,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,5,0.0010032500003944733,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,50,6,0.001987500001632725,3408,moves evaluated,100,9,,"{""moves_applied"": 9, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,50,6,0.0009937500008163624,1704.0,moves evaluated per pass,100,9,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,0,0.004320199999710894,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,0,0.002160099999855447,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,1,0.004335999999966589,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,1,0.0021679999999832944,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,2,0.0042893999998341314,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,2,0.0021446999999170657,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,3,0.004617599999619415,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,3,0.0023087999998097075,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,4,0.00492370000029041,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,4,0.002461850000145205,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,5,0.004225399999995716,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,5,0.002112699999997858,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,100,6,0.0044166000006953254,7292,moves evaluated,100,17,,"{""moves_applied"": 5, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,100,6,0.0022083000003476627,3646.0,moves evaluated per pass,100,17,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,0,0.008759199999985867,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,0,0.004379599999992934,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,1,0.008607300000221585,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,1,0.0043036500001107925,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,2,0.009399000000485103,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,2,0.004699500000242551,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,3,0.009544699998514261,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,3,0.0047723499992571305,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,4,0.008786000000327476,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,4,0.004393000000163738,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,5,0.008934699999372242,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,5,0.004467349999686121,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,200,6,0.008640499998364248,14554,moves evaluated,100,32,,"{""moves_applied"": 11, ""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,200,6,0.004320249999182124,7277.0,moves evaluated per pass,100,32,,"{""passes"": 2}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,0,0.03085099999952945,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,0,0.010283666666509816,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,1,0.030633400001534028,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,1,0.010211133333844677,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,2,0.03279660000043805,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,2,0.010932200000146016,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,3,0.030270999999629566,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,3,0.010090333333209855,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,4,0.03151830000024347,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,4,0.010506100000081156,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,5,0.030851499999698717,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,5,0.010283833333232906,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,400,6,0.030842999998640153,43632,moves evaluated,100,63,,"{""moves_applied"": 33, ""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,400,6,0.010280999999546717,14544.0,moves evaluated per pass,100,63,,"{""passes"": 3}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,0,0.08203310000135389,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,0,0.02050827500033847,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,1,0.0787545000002865,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,1,0.019688625000071625,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,2,0.07697399999960908,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,2,0.01924349999990227,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,3,0.08564119999937247,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,3,0.02141029999984312,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,4,0.07501789999878383,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,4,0.018754474999695958,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,5,0.07693130000006931,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,5,0.01923282500001733,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent,800,6,0.07529720000093221,117059,moves evaluated,100,122,,"{""moves_applied"": 66, ""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+descent_per_pass,800,6,0.018824300000233052,29264.75,moves evaluated per pass,100,122,,"{""passes"": 4}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,0,0.0001729650000015681,579.8,arcs examined per call,50,63,2.8989999999999996,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,0,0.0034442399999534247,nan,arcs examined per call,50,63,2.8989999999999996,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,1,0.00016956999998001264,581.35,arcs examined per call,50,63,2.90675,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,1,0.003618520000236458,nan,arcs examined per call,50,63,2.90675,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,2,0.00017052500006684568,580.25,arcs examined per call,50,63,2.90125,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,2,0.0035753799998929025,nan,arcs examined per call,50,63,2.90125,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,3,0.00017319999997198466,582.8,arcs examined per call,50,63,2.9139999999999997,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,3,0.003587840000182041,nan,arcs examined per call,50,63,2.9139999999999997,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,4,0.00016838499996083556,581.5,arcs examined per call,50,63,2.9075,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,4,0.0034710800002358154,nan,arcs examined per call,50,63,2.9075,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,5,0.00016943499995250021,582.05,arcs examined per call,50,63,2.9102499999999996,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,5,0.0035630999998829795,nan,arcs examined per call,50,63,2.9102499999999996,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,6,0.00016642000000501866,580.95,arcs examined per call,50,63,2.9047500000000004,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,6,0.0035547999999835157,nan,arcs examined per call,50,63,2.9047500000000004,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,0,0.00022294999998848653,1218.2,arcs examined per call,100,32,6.091,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,0,0.0031188000000838658,nan,arcs examined per call,100,32,6.091,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,1,0.00024278500004584202,1218.05,arcs examined per call,100,32,6.09025,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,1,0.0032106999999086836,nan,arcs examined per call,100,32,6.09025,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,2,0.0002085899999656249,1216.5,arcs examined per call,100,32,6.0825,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,2,0.0031812599998374937,nan,arcs examined per call,100,32,6.0825,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,3,0.00020864500002062413,1220.65,arcs examined per call,100,32,6.10325,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,3,0.0032071999998152024,nan,arcs examined per call,100,32,6.10325,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,4,0.00020800500005861976,1222.9,arcs examined per call,100,32,6.1145000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,4,0.003175899999769172,nan,arcs examined per call,100,32,6.1145000000000005,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,5,0.0002077649999591813,1221.55,arcs examined per call,100,32,6.107749999999999,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,5,0.0031127399997785687,nan,arcs examined per call,100,32,6.107749999999999,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,6,0.00020918000000165194,1218.4,arcs examined per call,100,32,6.0920000000000005,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,6,0.0031570799998007714,nan,arcs examined per call,100,32,6.0920000000000005,"{""feasible_share"": 0.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,0,0.0002940050000688643,2465.95,arcs examined per call,200,17,12.329749999999999,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,0,0.003011079999851063,41792.8,arcs examined per call,200,17,12.329749999999999,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,1,0.00034957500001837617,2459.9,arcs examined per call,200,17,12.2995,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,1,0.003189040000142995,41898.2,arcs examined per call,200,17,12.2995,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,2,0.0002915250000114611,2467.45,arcs examined per call,200,17,12.33725,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,2,0.0030346600000484615,42224.6,arcs examined per call,200,17,12.33725,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,3,0.00029010999996899046,2455.95,arcs examined per call,200,17,12.27975,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,3,0.0030768000000534813,41833.6,arcs examined per call,200,17,12.27975,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,4,0.00029445500003930645,2467.1,arcs examined per call,200,17,12.3355,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,4,0.003015320000122301,41823.4,arcs examined per call,200,17,12.3355,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,5,0.0002921499999501975,2466.3,arcs examined per call,200,17,12.3315,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,5,0.0029833199998392955,41731.6,arcs examined per call,200,17,12.3315,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,6,0.00029351499997574135,2461.55,arcs examined per call,200,17,12.30775,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,6,0.0030190800000127636,41769.0,arcs examined per call,200,17,12.30775,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,0,0.0004958500000611821,4839.25,arcs examined per call,400,9,24.19625,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,0,0.0031546600002911873,43443.0,arcs examined per call,400,9,24.19625,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,1,0.00047153999994407057,4828.9,arcs examined per call,400,9,24.144499999999997,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,1,0.003108079999947222,43479.0,arcs examined per call,400,9,24.144499999999997,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,2,0.00048337500002162417,4830.05,arcs examined per call,400,9,24.15025,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,2,0.003151679999791668,43709.4,arcs examined per call,400,9,24.15025,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,3,0.000492370000029041,4799.85,arcs examined per call,400,9,23.999250000000004,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,3,0.003164440000182367,43392.6,arcs examined per call,400,9,23.999250000000004,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,4,0.000508815000011964,4830.55,arcs examined per call,400,9,24.15275,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,4,0.0031665399998018983,43232.4,arcs examined per call,400,9,24.15275,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,5,0.00047886000002108633,4807.9,arcs examined per call,400,9,24.039499999999997,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,5,0.0029912400001194327,42933.6,arcs examined per call,400,9,24.039499999999997,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,6,0.0005009399999835295,4829.05,arcs examined per call,400,9,24.14525,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,6,0.0031553600001643645,43529.4,arcs examined per call,400,9,24.14525,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,0,0.0008311799999319192,9081.9,arcs examined per call,800,5,45.4095,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,0,0.003233639999962179,45169.0,arcs examined per call,800,5,45.4095,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,1,0.0008119549999719311,9039.4,arcs examined per call,800,5,45.196999999999996,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,1,0.003170440000030794,45048.0,arcs examined per call,800,5,45.196999999999996,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,2,0.0008243999999649531,9078.25,arcs examined per call,800,5,45.39125,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,2,0.0032101400000101423,45738.0,arcs examined per call,800,5,45.39125,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,3,0.0007876450000367186,8955.25,arcs examined per call,800,5,44.77625,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,3,0.0033321999999316176,45109.0,arcs examined per call,800,5,44.77625,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,4,0.0007959999999911816,9069.1,arcs examined per call,800,5,45.3455,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,4,0.0030996600002254127,45076.0,arcs examined per call,800,5,45.3455,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,5,0.0007924250000542088,8999.85,arcs examined per call,800,5,44.99925,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,5,0.003110039999955916,44634.0,arcs examined per call,800,5,44.99925,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_unlimited_q,200,6,0.0008597399999416666,9054.95,arcs examined per call,800,5,45.274750000000004,"{""feasible_share"": 1.0, ""tours"": 20}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor
+split_k_q,200,6,0.0031810000000405125,45299.0,arcs examined per call,800,5,45.274750000000004,"{""feasible_share"": 1.0, ""tours"": 5}",885ea835e74e6d1be880c365404b055e768e55c0,AMD Ryzen 7 9800X3D 8-Core Processor

@@ -1,0 +1,13 @@
+component,x,theory,theory_slope,fit_all_slope,fit_all_se,fit_all_r2,fit_n100_slope,fit_n100_se,fit_n100_r2,verdict,note
+cw,n,O(n^2 log n),2.179014,2.378206,0.059447,0.998129,2.44965,0.074146,0.998171,differs,the log factor puts the expected slope a bit above 2; the n^2 savings list also stresses the cache
+split_unlimited,n,"O(n L), L constant",1.0,1.106989,0.012776,0.999601,1.120747,0.017331,0.999522,consistent,"L is constant (Q fixed); per-call overhead (tour check, prefix sums) flattens small n"
+split_k,n,"O(K n L), K ~ n",2.0,1.961846,0.043423,0.998532,2.01857,0.049386,0.998804,consistent,"K grows linearly with n because Q is fixed, so K*n*L is quadratic"
+ga_generation,n,O(P n L),1.0,1.96116,0.041859,0.998635,2.013289,0.050389,0.998749,differs,"offspring needing more than K routes also run the K-limited Split, O(K n L) ~ n^2, even when it fails; arcs_per_decode counts successful K-limited splits only, so it does not show this fallback"
+gals_generation,n,O(P (n L + passes n kappa)),1.0,1.478711,0.025911,0.99908,1.518054,0.021591,0.999596,differs,"dominated by the descent, whose number of passes grows with n; decode may also fall back to the K-limited Split"
+tabu_iteration,n,O(n kappa),1.0,1.139509,0.02743,0.998265,1.182807,0.01956,0.999453,differs,candidate scan O(n kappa) plus O(K + L) to apply the move and update the tabu list
+tabu_delta,n,O(1) per move,0.0,0.197291,0.040651,0.887024,0.251667,0.044731,0.940574,differs,the delta does not depend on n: the line should be flat
+tabu_full_eval,n,O(n) per move,1.0,0.996652,0.021625,0.99859,1.027755,0.020867,0.999176,consistent,copying the routes and re-summing every route is O(n)
+descent,n,O(passes n kappa),1.0,1.336897,0.078521,0.989757,1.426184,0.102589,0.989757,differs,"the number of passes is empirical and grows with n, so the total grows faster than one pass"
+descent_per_pass,n,O(n kappa),1.0,1.0784,0.024871,0.998407,1.067688,0.041725,0.996955,consistent,one pass scans n customers x kappa neighbours
+split_unlimited_q,L,O(n L) at fixed n,1.0,0.577566,0.066149,0.962138,,,,differs,"linear in L (Q grows, n fixed)"
+split_k_q,L,"O(K n L), K ~ 1/Q",0.077776,-0.035269,0.025578,0.387908,,,,consistent,K*L is about constant: K shrinks as Q grows
