@@ -1,10 +1,27 @@
-# Drones, Deadlines and NP-Hardness – CVRP with a Genetic Algorithm and Tabu Search
+<h1 align="center">Drones, Deadlines and NP-Hardness – CVRP with a Genetic Algorithm and Tabu Search</h1>
 
-CMP 3005 – Analysis of Algorithms, term project.
+<p align="center">CMP 3005 – Analysis of Algorithms · Term Project · Bahçeşehir University · Fall 2026</p>
 
-![Overview: the MediDrone instance, the best team solution and the results of the 240 runs](docs/img/overview.png)
+<p align="center"><img src="docs/img/overview.png" width="100%" alt="Overview: the MediDrone instance, the best team solution and the results of the 240 runs"></p>
 
-Left: the 100-clinic team instance. Middle: best solution found (GA+LS, 15 routes, 20 strait crossings). Right: final gap to the best known cost, 10 runs per algorithm.
+<p align="center"><sub>Left: the 100-clinic team instance. Middle: best solution found (GA+LS, 15 routes, 20 strait crossings). Right: final gap to the best known cost, 10 runs per algorithm.</sub></p>
+
+<p align="center">
+<img src="https://img.shields.io/badge/python-3.12-3776AB" alt="Python 3.12">
+<img src="https://img.shields.io/badge/built_with-numpy_%7C_matplotlib_%7C_pytest-informational" alt="Built with numpy, matplotlib and pytest">
+<img src="https://img.shields.io/badge/no_external_solvers-from_scratch-success" alt="No external solvers">
+<img src="https://img.shields.io/badge/runs-240-blue" alt="240 runs">
+<img src="https://img.shields.io/badge/solutions-all_checker--verified-success" alt="All solutions checker-verified">
+</p>
+
+## Contents
+
+[Purpose](#purpose) · [Team](#team) · [How it works](#how-it-works) · [Key results](#key-results) ·
+[Parameter tuning](#parameter-tuning) · [Gallery](#gallery) · [Deliverables](#deliverables) · [Rules](#rules) ·
+[Install](#install) · [Quick start](#quick-start) · [Folder layout](#folder-layout) ·
+[Report items](#report-items-command-and-output-file) · [Expected runtimes](#expected-runtimes) · [Seeds](#seeds) ·
+[Reproducing everything](#reproducing-everything) · [Tests](#tests) ·
+[Own code and adapted ideas](#own-code-and-adapted-ideas) · [Sources](#sources)
 
 ## Purpose
 
@@ -25,25 +42,104 @@ The code:
 - validates every reported solution with an independent feasibility checker;
 - runs reproducible experiments (fixed seeds, equal time budgets) and writes raw CSV results, tables and figures.
 
+## Team
+
+Joohyun Lee · Ahmet Emre Cinel · Mohammad Ammar Hawwari
+
+## How it works
+
+```mermaid
+flowchart LR
+  A["Instance<br/>CVRPLIB / team / tiny"] --> B["Clarke–Wright baseline"]
+  B --> C["GA<br/>giant tour + Split,<br/>optional local search"]
+  B --> D["Tabu Search"]
+  C --> E["Feasibility checker"]
+  D --> E
+  E --> F["Raw CSV<br/>results/raw"]
+  F --> G["Analysis<br/>tables, figures, Wilcoxon"]
+  G --> H["Report numbers sheet"]
+```
+
+<table>
+<tr>
+<td width="50%"><img src="results/figures/team_routes_ga_ls.png" width="100%" alt="Route map of the best GA+LS team solution"><br><sub><i>Best team solution of GA+LS: cost 15816.26, 15 routes, 20 strait crossings.</i></sub></td>
+<td width="50%"><img src="results/figures/team_routes_tabu.png" width="100%" alt="Route map of the best Tabu Search team solution"><br><sub><i>Best team solution of Tabu Search: cost 15869.75, 15 routes, 20 strait crossings.</i></sub></td>
+</tr>
+</table>
+
 ## Key results
+
+| Instance | GA | GA+LS | Tabu Search |
+|---|---|---|---|
+| A-n32-k5 | 5.485 | **0.000** | **0.000** |
+| A-n45-k6 | 3.464 | 0.381 | **0.095** |
+| A-n60-k9 | 3.855 | **0.000** | 0.089 |
+| A-n80-k10 | 4.135 | **0.539** | 0.669 |
+| team | 3.003 | **0.232** | 1.048 |
+| tiny_n7 | **0.000** | **0.000** | **0.000** |
+| tiny_n8 | **0.000** | **0.000** | **0.000** |
+| tiny_n9 | **0.000** | **0.000** | **0.000** |
+
+Mean gap to the reference (%). Source: `results/tables/main_results.md` (column `mean_gap_pct`, 10 runs per cell).
+Reference: BKS for A-n*, the best cost known to us for team (not proven optimal), the exact optimum for tiny_n*.
+Bold = lowest in the row.
+
+<table>
+<tr>
+<td width="50%"><img src="results/figures/convergence_team.png" width="100%" alt="Convergence on the team instance"><br><sub><i>Best cost over time on the team instance (median of 10 runs, band = interquartile range).</i></sub></td>
+<td width="50%"><img src="results/figures/convergence_A-n60-k9.png" width="100%" alt="Convergence on A-n60-k9"><br><sub><i>Best cost over time on A-n60-k9 (median of 10 runs, band = interquartile range).</i></sub></td>
+</tr>
+</table>
 
 - **Runs:** 3 algorithms × 8 instances × 10 seeded runs = 240, with equal time budgets per instance; all 240 solutions pass `cvrp.checker.check` (0 failures).
 - **Best-known solutions reached** (4 Augerat instances × 10 runs = 40): GA+LS 28/40, Tabu Search 22/40, plain GA 0/40.
 - **Team instance:** best cost known to us 15816.26, found by GA+LS (6 of 10 runs); 15 routes and 20 strait crossings (19.0% of the cost). All 30 team solutions cross exactly 20 times.
 - **Measured slopes vs theory (n ≥ 100):** GA generation 2.01 vs 1 (fallback to the O(n²) K-limited Split); Tabu iteration 1.18 vs 1 (1.07 from moves per iteration, 0.11 from time per move); move evaluation: delta 0.25 vs 0, full 1.03 vs 1.
+
+<p align="center"><img src="results/figures/complexity_overview.png" width="100%" alt="Measured running time vs n for the main components"><br><sub><i>Measured running time vs n (log-log), main components.</i></sub></p>
+
+<table>
+<tr>
+<td width="50%"><img src="results/figures/delta_vs_full.png" width="100%" alt="Time per move: delta vs full evaluation"><br><sub><i>Time per move: O(1) delta vs full re-evaluation.</i></sub></td>
+<td width="50%"><img src="results/figures/split_vs_L.png" width="100%" alt="Split time vs customers per route"><br><sub><i>Split time vs customers per route L (n = 200).</i></sub></td>
+</tr>
+</table>
+
 - **Wilcoxon + Holm (α = 0.05):** GA+LS and Tabu Search both beat plain GA on all five larger instances; GA+LS beats Tabu Search only on the team instance (not significant on A-n45/60/80, ties on A-n32-k5).
+
+## Parameter tuning
+
+- **Round 1:** one factor at a time around the defaults, 26 configurations × 3 instances × 5 runs × 10 s on tuning seeds 1000–1004, validated on the held-out seeds 1005–1009; the final seeds 20260–20269 are never used.
+- **Round 2:** 7 named Tabu Search configurations and a one-factor study of GA+LS, 4 instances × 5 runs × 15 s; the rule picks the configuration with the fewest changes within one SE of the best.
+- **Used in the main run** (`experiments/tuned_params.json`): GA population 25, elite 20, crossover 0.6; GA+LS population 10, elite 5, 20 neighbours; Tabu Search candidate list 20, λ ×3 every 3 iterations, tenure 5–15.
+
+<p align="center"><img src="results/figures/tuning2_tabu_configs.png" width="100%" alt="Round 2 Tabu Search configurations"><br><sub><i>Round 2: the 7 Tabu Search configurations, per instance (SE bars) and averaged.</i></sub></p>
+
+<table>
+<tr>
+<td width="50%"><img src="results/figures/sensitivity_tabu_tenure.png" width="100%" alt="Sensitivity of Tabu Search to the tenure"><br><sub><i>Round 1: Tabu Search tenure.</i></sub></td>
+<td width="50%"><img src="results/figures/sensitivity_ga_ls_pop_size.png" width="100%" alt="Sensitivity of GA+LS to the population size"><br><sub><i>Round 2: GA+LS population size.</i></sub></td>
+</tr>
+</table>
+
+## Gallery
+
+<table>
+<tr>
+<td width="50%"><img src="results/figures/team_instance.png" width="100%" alt="The MediDrone team instance"><br><sub><i>The MediDrone team instance (100 clinics, P = 150).</i></sub></td>
+<td width="50%"><img src="results/figures/boxplots_final.png" width="100%" alt="Boxplots of the final gaps"><br><sub><i>Final gap per algorithm, 10 runs per instance.</i></sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="results/figures/convergence_A-n45-k6.png" width="100%" alt="Convergence on A-n45-k6"><br><sub><i>Convergence on A-n45-k6 (median of 10 runs).</i></sub></td>
+<td width="50%"><img src="results/figures/convergence_A-n80-k10.png" width="100%" alt="Convergence on A-n80-k10"><br><sub><i>Convergence on A-n80-k10 (median of 10 runs).</i></sub></td>
+</tr>
+</table>
 
 ## Deliverables
 
 - Report (PDF): to be added
 - Slides: to be added
 - This repository: code, data, raw results, tables and figures
-
-## Team
-
-- Joohyun Lee
-- Ahmet Emre Cinel
-- Mohammad Ammar Hawwari
 
 ## Rules
 
@@ -233,6 +329,9 @@ Measured on the machine in `results/raw/hardware.txt` (8 cores).
 The steps below recreate every committed result. Each step reads the output of the steps before it; the details are
 in the step notes in `docs/`.
 
+<details>
+<summary>Show the full reproduction steps</summary>
+
 **1. Benchmark data (Augerat set A, CVRPLIB).** The files are already in `data/cvrplib/`. To re-download them:
 
 ```powershell
@@ -343,6 +442,8 @@ python -m experiments.timing
 ```powershell
 python -m experiments.report_numbers
 ```
+
+</details>
 
 **Other benchmarks used in the step notes.** Mean time per `split()` call on 200 random tours, and the O(1) delta vs a
 full re-evaluation per move:
