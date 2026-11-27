@@ -385,7 +385,9 @@ No code was copied from any library or repository. The only libraries used are n
 
 - G. Clarke & J. W. Wright, "Scheduling of vehicles from a central depot to a number of delivery points," *Operations Research*, 1964.
 - C. Prins, "A simple and effective evolutionary algorithm for the vehicle routing problem," *Computers & Operations Research*, 2004.
+- G. A. Croes, "A method for solving traveling-salesman problems," *Operations Research*, 1958.
 - F. Glover & M. Laguna, *Tabu Search*, Kluwer, 1997.
+- P. Toth & D. Vigo, "The granular tabu search and its application to the vehicle-routing problem," *INFORMS Journal on Computing*, 2003.
 - P. Toth & D. Vigo (eds.), *Vehicle Routing: Problems, Methods, and Applications*, 2nd ed., SIAM, 2014.
 - M. R. Garey & D. S. Johnson, *Computers and Intractability*, 1979.
 - CVRPLIB benchmark library (instances and best-known solutions).
