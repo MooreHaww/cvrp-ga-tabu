@@ -1,0 +1,10 @@
+date: 2026-11-26T17:04:06
+os: Windows-11-10.0.26300-SP0
+cpu: AMD Ryzen 7 9800X3D 8-Core Processor
+physical_cores: 8
+logical_cores: 8
+ram_gb: 31.1
+python: 3.12.10
+numpy: 2.5.5
+git_commit: ca3539b92772bc0bdab78e2285895b36918ed7af
+workers: 3

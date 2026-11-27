@@ -1,0 +1,15 @@
+{
+  "ga": {
+    "crossover_rate": 0.6,
+    "elite_count": 20,
+    "pop_size": 25
+  },
+  "ga_memetic": {},
+  "tabu": {
+    "adapt_every": 3,
+    "candidate_size": 20,
+    "lam_factor": 3,
+    "tenure_max": 25,
+    "tenure_min": 10
+  }
+}
