@@ -8,10 +8,13 @@ import time
 
 import pytest
 
-from experiments.timing import (N_COMPONENTS, SLOPE_TOL, build_fits, fit_loglog, main, theory_slope, verdict,
-                                write_fits)
+from pathlib import Path
+
+from experiments.timing import (N_COMPONENTS, SLOPE_TOL, build_fits, fit_loglog, main, measured_ticks, theory_slope,
+                                verdict, write_figures, write_fits)
 
 NS = [50, 100, 200, 400, 800]
+TIMING_CSV = Path(__file__).resolve().parents[1] / "results" / "timing" / "timing.csv"
 
 
 def test_fit_recovers_quadratic():
@@ -80,6 +83,36 @@ def test_fits_writer_is_deterministic(tmp_path):
         data = pa.read_bytes()
         assert data == pb.read_bytes() and b"\r" not in data
     assert f"max(2*SE, {SLOPE_TOL})" in (tmp_path / "a" / "complexity_fits.md").read_text()
+
+
+def test_log_axis_ticks_are_the_measured_values():
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots()
+    ax.plot([50, 800], [1, 2])
+    ax.set_xscale("log")
+    measured_ticks(ax, [800, 50, 100, 200, 400, 100])
+    fig.canvas.draw()
+    assert [t.get_text() for t in ax.get_xticklabels()] == ["50", "100", "200", "400", "800"]
+    assert all(t.get_text() == "" for t in ax.get_xticklabels(minor=True))
+    measured_ticks(ax, [2.91, 6.09, 12.33])
+    assert [t.get_text() for t in ax.get_xticklabels()] == ["2.9", "6.1", "12.3"]
+    plt.close(fig)
+
+
+@pytest.mark.skipif(not TIMING_CSV.exists(), reason="no committed timing results")
+def test_figures_redrawn_from_timing_csv(tmp_path):
+    """The figures can be rebuilt from the committed timing.csv without measuring; the CSV is only read."""
+    before = TIMING_CSV.read_bytes()
+    with TIMING_CSV.open(newline="") as f:
+        rows = list(csv.DictReader(f))
+    paths = write_figures(rows, build_fits(rows), tmp_path)
+    expected = {f"complexity_{c}.png" for c in N_COMPONENTS} | {"complexity_overview.png", "split_vs_L.png",
+                                                                 "delta_vs_full.png"}
+    assert {p.name for p in paths} == expected
+    assert all(p.exists() and p.stat().st_size > 10_000 for p in paths)
+    assert TIMING_CSV.read_bytes() == before
 
 
 def test_smoke_run_writes_everything(tmp_path):

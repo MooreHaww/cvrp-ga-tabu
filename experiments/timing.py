@@ -425,6 +425,20 @@ def _plt():
     return plt
 
 
+def tick_label(v: float) -> str:
+    """Plain tick text: '50', '800' for sizes, '2.9' for non-integer L values. Time: O(1)."""
+    return f"{v:g}" if float(v).is_integer() else f"{v:.1f}"
+
+
+def measured_ticks(ax, values) -> None:
+    """Major x ticks of a log axis exactly at the measured values, with plain labels; minor tick labels hidden
+    (matplotlib's default '3x10^2 4x10^2' labels overlap). Call after ax.set_xscale('log'). Time: O(len(values))."""
+    from matplotlib.ticker import NullFormatter
+    values = sorted(set(float(v) for v in values))
+    ax.set_xticks(values, [tick_label(v) for v in values])
+    ax.xaxis.set_minor_formatter(NullFormatter())
+
+
 def _draw_component(ax, rows: list[dict], comp: str, fit: dict | None) -> None:
     pts = medians(rows, comp)
     xs, med = np.array([p[0] for p in pts]), np.array([p[1] for p in pts])
@@ -440,6 +454,7 @@ def _draw_component(ax, rows: list[dict], comp: str, fit: dict | None) -> None:
         ax.plot(xs, med[0] * (xs / xs[0]) ** k, color="grey", linestyle=style, linewidth=1, label=f"slope {k}")
     ax.set_xscale("log")
     ax.set_yscale("log")
+    measured_ticks(ax, xs)
     ax.set_xlabel("n (customers)")
     ax.set_ylabel("seconds")
     ax.set_title(f"{comp}: {THEORY[comp][0]}", fontsize=10)
@@ -488,6 +503,7 @@ def plot_split_vs_L(rows: list[dict], out_path: Path) -> Path:
     n = next(int(r["n"]) for r in rows if r["component"] == "split_unlimited_q")
     ax.set_xscale("log")
     ax.set_yscale("log")
+    measured_ticks(ax, [p[0] for p in medians(rows, "split_unlimited_q", x="L")])
     ax.set_xlabel("L_eff = arcs examined / n (customers per route)")
     ax.set_ylabel("seconds per split() call")
     ax.set_title(f"Split vs L at fixed n = {n} (Q varied)", fontsize=11)
@@ -508,6 +524,7 @@ def plot_delta_vs_full(rows: list[dict], out_path: Path) -> Path:
     ax.plot(xs, [p[1] * 1e6 for p in full], marker="s", color="tab:red", label="full re-evaluation, O(n)")
     ax.set_xscale("log")
     ax.set_yscale("log")
+    measured_ticks(ax, xs)
     ax.set_xlabel("n (customers)")
     ax.set_ylabel("microseconds per relocate move")
     ax2 = ax.twinx()
@@ -523,6 +540,15 @@ def plot_delta_vs_full(rows: list[dict], out_path: Path) -> Path:
     fig.savefig(out_path, dpi=150)
     plt.close(fig)
     return out_path
+
+
+def write_figures(rows: list[dict], fits: list[dict], figures_dir: Path) -> list[Path]:
+    """Every timing figure. `rows` may come from measure_all or be read back from timing.csv (string values),
+    so the figures can be redrawn without measuring again. Time: O(rows)."""
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    figs = plot_components(rows, fits, figures_dir)
+    return figs + [plot_split_vs_L(rows, figures_dir / "split_vs_L.png"),
+                   plot_delta_vs_full(rows, figures_dir / "delta_vs_full.png")]
 
 
 # --------------------------------------------------------------------------- entry point
@@ -542,8 +568,7 @@ def run(cfg: Config, out: Path, tables: Path, figures: Path) -> dict:
     share_csv = write_rows(out / "share_ga_ls.csv", SHARE_COLUMNS, share)
     fits = build_fits(rows)
     tables_written = write_fits(fits, tables)
-    figs = plot_components(rows, fits, figures)
-    figs += [plot_split_vs_L(rows, figures / "split_vs_L.png"), plot_delta_vs_full(rows, figures / "delta_vs_full.png")]
+    figs = write_figures(rows, fits, figures)
     print(f"done in {time.perf_counter() - started:.0f} s")
     return {"rows": rows, "fits": fits, "share": share,
             "files": [timing_csv, hw_path, share_csv, *tables_written, *figs]}
