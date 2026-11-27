@@ -367,6 +367,20 @@ The suite covers, among others:
 
 Step-by-step design notes are in `docs/step*_notes.md`.
 
+## Own code and adapted ideas
+
+All code in this repository is our own. The following parts follow published descriptions (pseudocode and papers),
+not code from any library or repository:
+
+- Clarke–Wright savings: Clarke & Wright (1964);
+- the Split procedure for decoding giant tours: Prins (2004);
+- 2-opt: Croes (1958);
+- the granular neighbourhood (candidate lists) of the Tabu Search: Toth & Vigo (2003);
+- the basic Genetic Algorithm and Tabu Search structure: Glover & Laguna (1997).
+
+No code was copied from any library or repository. The only libraries used are numpy, matplotlib, pytest and
+`scipy.stats` (the Wilcoxon test only), plus the Python standard library.
+
 ## Sources
 
 - G. Clarke & J. W. Wright, "Scheduling of vehicles from a central depot to a number of delivery points," *Operations Research*, 1964.
