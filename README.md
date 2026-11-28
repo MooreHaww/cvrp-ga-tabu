@@ -137,9 +137,8 @@ Bold = lowest in the row.
 
 ## Deliverables
 
-- Report (PDF): to be added
-- Slides: to be added
-- This repository: code, data, raw results, tables and figures
+- Report (PDF): [CVRP_Term_Project_Report.pdf](docs/report/CVRP_Term_Project_Report.pdf)
+- Slides: [docs/slides/](docs/slides/) (editable PPTX and PDF)
 
 ## Rules
 
